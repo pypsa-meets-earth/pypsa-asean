@@ -98,10 +98,11 @@ rule clean:
 
 rule solve_all_networks:
     input:
-        expand(
+        base_extended="networks/" + RDIR + "base_extended.nc",
+        networks=expand(
             "results/" + RDIR + "networks/elec_s{simpl}_{clusters}_ec_l{ll}_{opts}.nc",
             **config["scenario"],
-        ),
+        )
 
 
 rule plot_all_p_nom:
@@ -293,6 +294,96 @@ rule base_network:
         "scripts/base_network.py"
 
 
+''' todo for realism
+rule build_line_rating:
+    params:
+        snapshots=config["snapshots"],
+    input:
+        base_network="networks/" + RDIR + "base.nc",
+        cutout="cutouts/"
+        + CDIR
+        + [c["cutout"] for _, c in config["renewable"].items()][0]
+        + ".nc",
+    output:
+        output="resources/" + RDIR + "dlr.nc",
+    log:
+        "logs/" + RDIR +"build_line_rating.log",
+    benchmark:
+        "benchmarks/" + RDIR + "build_line_rating",
+    threads: config["atlite"].get("nprocesses", 4),
+    resources:
+        mem_mb=config["atlite"].get("nprocesses", 4) * 1000,
+    conda:
+        "envs/environment.yaml"
+    script:
+        "scripts/build_line_rating.py"
+
+'''
+rule build_transmission_projects:
+    params:
+        transmission_projects=config["transmission_projects"],
+        line_factor=config["lines"]["length_factor"],
+        s_max_pu=config["lines"]["s_max_pu"],
+    input:
+        base_network="networks/" + RDIR + "base.nc",
+        offshore_shapes="resources/" + RDIR + "shapes/offshore_shapes.geojson",
+        europe_shape="resources/" + RDIR + "shapes/country_shapes.geojson",
+        transmission_projects=lambda w: [
+            "data/transmission_projects/" + name
+            for name, include in config["transmission_projects"]["include"].items()
+            if include
+        ],
+    output:
+        new_lines="data/transmission_projects/new_lines.csv",
+        new_links="data/transmission_projects/new_links.csv",
+        adjust_lines="data/transmission_projects/adjust_lines.csv",
+        adjust_links="data/transmission_projects/adjust_links.csv",
+        new_buses="data/transmission_projects/new_buses.csv",
+    log:
+        "logs/" + RDIR +"build_transmission_projects.log",
+    benchmark:
+        "benchmarks/" + RDIR + "build_transmission_projects",
+    resources:
+        mem_mb=4000,
+    threads: 1
+    conda:
+        "envs/environment.yaml"
+    script:
+        "scripts/build_transmission_projects.py"
+
+
+rule add_transmission_projects:
+    params:
+        transmission_projects=config["transmission_projects"],
+        s_max_pu=config["lines"]["s_max_pu"],
+    input:
+        network="networks/" + RDIR + "base.nc",
+        transmission_projects=lambda w: (
+            [
+                "data/transmission_projects/new_lines.csv",
+                "data/transmission_projects/new_links.csv",
+                "data/transmission_projects/adjust_lines.csv",
+                "data/transmission_projects/adjust_links.csv",
+                "data/transmission_projects/new_buses.csv"
+            ] if config["transmission_projects"].get("enable", False) else []
+        ),
+    output:
+        network="networks/" + RDIR + "base_extended.nc",
+    log:
+        "logs/" + RDIR +"add_transmission_projects.log",
+    benchmark:
+        "benchmarks/" + RDIR + "add_transmission_projects",
+    threads: 1
+    resources:
+        mem_mb=4000,
+    conda:
+        "envs/environment.yaml"
+    script:
+        "scripts/add_transmission_projects.py"
+
+
+
+
 rule build_bus_regions:
     params:
         alternative_clustering=config["cluster_options"]["alternative_clustering"],
@@ -301,7 +392,7 @@ rule build_bus_regions:
     input:
         country_shapes="resources/" + RDIR + "shapes/country_shapes.geojson",
         offshore_shapes="resources/" + RDIR + "shapes/offshore_shapes.geojson",
-        base_network="networks/" + RDIR + "base.nc",
+        base_network="networks/" + RDIR + "base_extended.nc",
         #gadm_shapes="resources/" + RDIR + "shapes/MAR2.geojson",
         #using this line instead of the following will test updated gadm shapes for MA.
         #To use: downlaod file from the google drive and place it in resources/" + RDIR + "shapes/
@@ -424,7 +515,7 @@ rule build_demand_profiles:
         load_options=config["load_options"],
         countries=config["countries"],
     input:
-        base_network="networks/" + RDIR + "base.nc",
+        base_network="networks/" + RDIR + "base_extended.nc",
         regions="resources/" + RDIR + "bus_regions/regions_onshore.geojson",
         load=load_data_paths,
         #gadm_shapes="resources/" + RDIR + "shapes/MAR2.geojson",
@@ -490,7 +581,7 @@ rule build_powerplants:
         alternative_clustering=config["cluster_options"]["alternative_clustering"],
         powerplants_filter=config["electricity"]["powerplants_filter"],
     input:
-        base_network="networks/" + RDIR + "base.nc",
+        base_network="networks/" + RDIR + "base_extended.nc",
         pm_config="configs/powerplantmatching_config.yaml",
         custom_powerplants="data/custom_powerplants.csv",
         osm_powerplants="resources/" + RDIR + "osm/clean/all_clean_generators.csv",
@@ -536,7 +627,7 @@ rule add_electricity:
             for attr, fn in d.items()
             if str(fn).startswith("data/")
         },
-        base_network="networks/" + RDIR + "base.nc",
+        base_network="networks/" + RDIR + "base_extended.nc",
         tech_costs=COSTS,
         powerplants="resources/" + RDIR + "powerplants.csv",
         #gadm_shapes="resources/" + RDIR + "shapes/MAR2.geojson",

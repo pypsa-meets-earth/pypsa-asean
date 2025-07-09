@@ -55,29 +55,24 @@ cluster_options:
     p_threshold_drop_isolated: 0 # [MW] isolated buses are being discarded if bus mean power is below the specified threshold
     p_threshold_merge_isolated: 0 # [MW] isolated buses are being merged into a single isolated bus if a bus mean power is below the specified threshold
     s_threshold_fetch_isolated: 0.1 # [-] a share of the national load for merging an isolated network into a backbone network
+  #alternative_clustering: true
   #fillea 
- # aggregation_strategies:
- #   lines:
-   #   s_nom: sum
-   #   length: mean
-    #  num_parallel: sum
-    #  #v_nom: first
-      #capital_cost: mean
-      #geometry: first
-
 snapshots:
-  start: "2013-01-01"
-  end: "2013-02-01"
+  start: "2018-01-01"
+  end: "2018-02-01"
 
 scenario:
   ll: ["copt"] #"copt" capital cost optimization no limit v1.25 transmission volume limited to 125%
   clusters: [105]
-  opts: [96h]
-  #opts: [Co2L0.05-EQ0.1c-72h] #CO2 limit 5% to base model, 48H, 60% self sufficiency
-  #planning_horizons: # investment years for myopic and perfect; or costs year for overnight
-  #- 2030
+  planning_horizons: # investment years for myopic and perfect; or costs year for overnight
+  - 2030
+  - 2050  # 2040 needs NZ data
+  demand: #Net Zero
+  - "NZ"
+  opts: [Co2L0.05-EQ0.8c-3h] #CO2 limit 5% to base model, 48H, 60% self sufficiency
 
-foresight: overnight
+
+foresight: myopic
 
 
 sector:
@@ -88,14 +83,19 @@ sector:
     network: false
     network_routes: greenfield # "gas or "greenfield". If "gas"  ->  the network data are fetched from ["sector"]["gas"]["network_data"]. If "greenfield"  -> the network follows the topology of electrical transmission lines
     gas_network_repurposing: false # If true -> ["sector"]["gas"]["network"] is automatically false
+  #dynamic_transport: #-> need to research the values here!
+    #enable: True 
+  shipping_hydrogen_share: #1.0
+    NZ_2030: 0.10
+    NZ_2050: 0.36
 
 custom_data: #look for datac
   gas_network: true # used osm data as placeholder 
   clean_osm_data_options:
   use_custom_lines: add_custom
-  path_custom_lines: ../pypsa-sea-data/custom_osm/custom_lines_exist.geojson
+  path_custom_lines: ../pypsa-sea-data/custom_osm/custom_lines_exist_new_.geojson
   use_custom_substations: add_custom
-  path_custom_substations: ../pypsa-sea-data/custom_osm/custom_substations_aims.geojson
+  path_custom_substations: ../pypsa-sea-data/custom_osm/custom_substations_new_.geojson
 
 load_options:
   prediction_year: 2050  # Load scenarios available with different prediction year (GDP, population)
@@ -118,28 +118,14 @@ electricity:
 costs:
   year: 2050
 
-cluster_options:
-    aggregation_strategies:
-      lines:
-        s_nom: sum
-        length: mean
-        num_parallel: sum
-        v_nom: first
-        capital_cost: mean
-        geometry: first
 
 
 transmission_projects:
   enable: true
   include:
-    template: true
-  skip:
-  - upgraded_lines
-  - upgraded_links
+    EO8: true
   status:
-  - under_construction
-  - in_permitting
-  - confirmed
-    #- planned_not_yet_permitted
-    #- under_consideration
-  new_link_capacity: zero #keep or zero
+  - in_planning
+  - under_consideration
+  - existing
+  new_link_capacity: keep #keep or zero

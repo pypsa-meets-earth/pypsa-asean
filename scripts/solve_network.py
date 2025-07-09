@@ -563,7 +563,7 @@ def add_land_use_constraint(n):
     else:
         _add_land_use_constraint(n)
 
-
+'''
 def _add_land_use_constraint(n):
     # warning: this will miss existing offwind which is not classed AC-DC and has carrier 'offwind'
 
@@ -582,6 +582,24 @@ def _add_land_use_constraint(n):
 
         existing.index += " " + carrier + "-" + snakemake.config["scenario"]["planning_horizons"] #snakemake.wildcards.planning_horizons
         n.generators.loc[existing.index, "p_nom_max"] -= existing
+
+    n.generators.p_nom_max.clip(lower=0, inplace=True)
+'''
+def _add_land_use_constraint(n):
+    # warning: this will miss existing offwind which is not classed AC-DC and has carrier 'offwind'
+
+    for carrier in ["solar", "onwind", "offwind-ac", "offwind-dc"]:
+        existing = (
+            n.generators.loc[n.generators.carrier == carrier, "p_nom"]
+            .groupby(n.generators.bus.map(n.buses.location))
+            .sum()
+        )
+        existing.index += " " + carrier + "-" + snakemake.wildcards.planning_horizons
+        for idx in existing.index.intersection(n.generators.index):
+            n.generators.at[idx, "p_nom_max"] = max(
+                n.generators.at[idx, "p_nom_max"] - existing.at[idx],
+                n.generators.at[idx, "p_nom_min"]
+            )
 
     n.generators.p_nom_max.clip(lower=0, inplace=True)
 

@@ -85,6 +85,7 @@ cluster_options:
     p_threshold_drop_isolated: 20 # [MW] isolated buses are being discarded if bus mean power is below the specified threshold
     p_threshold_merge_isolated: 300 # [MW] isolated buses are being merged into a single isolated bus if a bus mean power is below the specified threshold
     s_threshold_fetch_isolated: false # [-] a share of the national load for merging an isolated network into a backbone network
+    under_construction_conflict_resolution: min  #"max": True if any lines are under construction; "min": True only if all lines are under construction
   cluster_network:
     algorithm: kmeans
     feature: solar+onwind-time
@@ -93,6 +94,8 @@ cluster_options:
   distribute_cluster: ["load"] # Distributes cluster nodes per country according to ['load'],['pop'] or ['gdp']
   out_logging: true # When "True", logging is printed to console
   aggregation_strategies:
+    lines:
+      under_construction: min
     generators: # use "min" for more conservative assumptions
       p_nom: sum
       p_nom_max: sum
@@ -147,7 +150,7 @@ base_network:
 
 load_options:
   ssp: "ssp2-2.6" # shared socio-economic pathway (GDP and population growth) scenario to consider
-  weather_year: 2013 # Load scenarios available with different weather year (different renewable potentials)
+  weather_year: 2018 # Load scenarios available with different weather year (different renewable potentials)
   prediction_year: 2030 # Load scenarios available with different prediction year (GDP, population)
   scale: 1 # scales all load time-series, i.e. 2 = doubles load
 
@@ -222,7 +225,7 @@ transformers:
 atlite:
   nprocesses: 4
   cutouts:
-    cutout-2013-era5:
+    cutout-2018-era5:
       module: era5
       dx: 0.3 # cutout resolution
       dy: 0.3 # cutout resolution
@@ -234,7 +237,7 @@ atlite:
 
 renewable:
   onwind:
-    cutout: cutout-2013-era5
+    cutout: cutout-2018-era5
     resource:
       method: wind
       turbine: Vestas_V112_3MW
@@ -261,7 +264,7 @@ renewable:
     clip_p_max_pu: 1.e-2
     extendable: true
   offwind-ac:
-    cutout: cutout-2013-era5
+    cutout: cutout-2018-era5
     resource:
       method: wind
       turbine: NREL_ReferenceTurbine_5MW_offshore
@@ -279,7 +282,7 @@ renewable:
     clip_p_max_pu: 1.e-2
     extendable: true
   offwind-dc:
-    cutout: cutout-2013-era5
+    cutout: cutout-2018-era5
     resource:
       method: wind
       turbine: NREL_ReferenceTurbine_5MW_offshore
@@ -298,7 +301,7 @@ renewable:
     clip_p_max_pu: 1.e-2
     extendable: true
   solar:
-    cutout: cutout-2013-era5
+    cutout: cutout-2018-era5
     resource:
       method: pv
       panel: CSi
@@ -319,7 +322,7 @@ renewable:
     clip_p_max_pu: 1.e-2
     extendable: true
   hydro:
-    cutout: cutout-2013-era5
+    cutout: cutout-2018-era5
     hydrobasins_level: 6
     resource:
       method: hydro
@@ -335,10 +338,10 @@ renewable:
     extendable: true
     normalization:
       method: eia # 'hydro_capacities' to rescale country hydro production by using hydro_capacities, 'eia' to rescale by eia data, false for no rescaling
-      year: 2013 # (optional) year of statistics used to rescale the runoff time series. When not provided, the cutout weather year is used
+      year: 2018 # (optional) year of statistics used to rescale the runoff time series. When not provided, the cutout weather year is used
     multiplier: 1.1 # multiplier applied after the normalization of the hydro production; default 1.0
   csp:
-    cutout: cutout-2013-era5
+    cutout: cutout-2018-era5
     resource:
       method: csp
       installation: SAM_solar_tower
@@ -1001,3 +1004,18 @@ plotting:
     H2: Hydrogen Storage
     lines: Transmission Lines
     ror: Run of River
+
+transmission_projects:
+  enable: true
+  include:
+    template: false
+  skip: []
+  #- upgraded_lines
+  #- upgraded_links
+  status:
+  - under_construction
+  - in_permitting
+  - confirmed
+    #- planned_not_yet_permitted
+    #- under_consideration
+  new_link_capacity: zero #keep or zero

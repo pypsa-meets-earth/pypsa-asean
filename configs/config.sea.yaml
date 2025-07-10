@@ -64,12 +64,14 @@ snapshots:
 scenario:
   ll: ["copt"] #"copt" capital cost optimization no limit v1.25 transmission volume limited to 125%
   clusters: [105]
+  sopts:
+  - "144h"
   planning_horizons: # investment years for myopic and perfect; or costs year for overnight
   - 2030
   - 2050  # 2040 needs NZ data
   demand: #Net Zero
   - "NZ"
-  opts: [Co2L0.05-EQ0.8c-3h] #CO2 limit 5% to base model, 48H, 60% self sufficiency
+  opts: [Co2L0.05-EQ0.8c-3H] #CO2 limit 5% to base model, 48H, 60% self sufficiency
 
 
 foresight: myopic

@@ -89,6 +89,6 @@ There are some datasets which were prepared to ensure smooth run of the model. H
 
 Currently the pre-build file is calculated for Africa, global `natura.tiff` raster is under development.
 
-* **electricity demand profiles** are provided by PyPSA-Earth as globally hourly demand loads corresponding to Shared Socioeconomic Pathways `SSP <http://dx.doi.org/https://doi.org/10.1016/j.gloenvcha.2016.05.009>`_ for 2030, 2040, 2050 and 2100 and weather conditions years of 2011, 2013 and 2018. Pre-calculated data on electricity demand are placed in `data/{ssp_scenario_id}/{ssp_year}/era5_2013/{continent_name}.nc` folder and loaded automatically during the model run.
+* **electricity demand profiles** are provided by PyPSA-Earth as globally hourly demand loads corresponding to Shared Socioeconomic Pathways `SSP <http://dx.doi.org/https://doi.org/10.1016/j.gloenvcha.2016.05.009>`_ for 2030, 2040, 2050 and 2100 and weather conditions years of 2011, 2018 and 2018. Pre-calculated data on electricity demand are placed in `data/{ssp_scenario_id}/{ssp_year}/era5_2018/{continent_name}.nc` folder and loaded automatically during the model run.
 
 The demand time series were modeled by `synde package <https://github.com/euronion/synde>`_  which implements a workflow management system to extract the demand data created with the open source Global-Energy GIS `GEGIS <http://dx.doi.org/10.1016/j.esr.2020.100606>`_ package. GEGIS produces hourly demand time series by applying machine learning methods using as predictors temperature profiles, population, GDP.

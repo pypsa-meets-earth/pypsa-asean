@@ -330,6 +330,7 @@ The documentation is available here: [documentation](https://pypsa-earth.readthe
                 </a>
             </td>
             <td align="center">
+<<<<<<< Updated upstream
                 <a href="https://github.com/virio-andreyana">
                     <img src="https://avatars.githubusercontent.com/u/114650479?v=4" width="100;" alt="virio-andreyana"/>
                     <br />
@@ -353,6 +354,8 @@ The documentation is available here: [documentation](https://pypsa-earth.readthe
 		</tr>
 		<tr>
             <td align="center">
+=======
+>>>>>>> Stashed changes
                 <a href="https://github.com/drifter089">
                     <img src="https://avatars.githubusercontent.com/u/93286254?v=4" width="100;" alt="drifter089"/>
                     <br />
@@ -360,6 +363,25 @@ The documentation is available here: [documentation](https://pypsa-earth.readthe
                 </a>
             </td>
             <td align="center">
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+                <a href="https://github.com/virio-andreyana">
+                    <img src="https://avatars.githubusercontent.com/u/114650479?v=4" width="100;" alt="virio-andreyana"/>
+                    <br />
+                    <sub><b>virio-andreyana</b></sub>
+=======
+                <a href="https://github.com/GridGrapher">
+                    <img src="https://avatars.githubusercontent.com/u/127969728?v=4" width="100;" alt="GridGrapher"/>
+                    <br />
+                    <sub><b>GridGrapher</b></sub>
+>>>>>>> Stashed changes
+                </a>
+            </td>
+		</tr>
+		<tr>
+            <td align="center">
+>>>>>>> Stashed changes
                 <a href="https://github.com/Eric-Nitschke">
                     <img src="https://avatars.githubusercontent.com/u/152230633?v=4" width="100;" alt="Eric-Nitschke"/>
                     <br />
@@ -418,6 +440,16 @@ The documentation is available here: [documentation](https://pypsa-earth.readthe
                 </a>
             </td>
             <td align="center">
+<<<<<<< Updated upstream
+=======
+                <a href="https://github.com/ljansen-iee">
+                    <img src="https://avatars.githubusercontent.com/u/47030274?v=4" width="100;" alt="ljansen-iee"/>
+                    <br />
+                    <sub><b>ljansen-iee</b></sub>
+                </a>
+            </td>
+            <td align="center">
+>>>>>>> Stashed changes
                 <a href="https://github.com/Ly0n">
                     <img src="https://avatars.githubusercontent.com/u/6413976?v=4" width="100;" alt="Ly0n"/>
                     <br />
@@ -432,14 +464,53 @@ The documentation is available here: [documentation](https://pypsa-earth.readthe
                 </a>
             </td>
             <td align="center">
+<<<<<<< Updated upstream
+=======
+                <a href="https://github.com/TosinGeorge">
+                    <img src="https://avatars.githubusercontent.com/u/78568233?v=4" width="100;" alt="TosinGeorge"/>
+<<<<<<< Updated upstream
+                    <br />
+                    <sub><b>TosinGeorge</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/cpschau">
+                    <img src="https://avatars.githubusercontent.com/u/124347782?v=4" width="100;" alt="cpschau"/>
+                    <br />
+                    <sub><b>cpschau</b></sub>
+                </a>
+            </td>
+            <td align="center">
+>>>>>>> Stashed changes
+                <a href="https://github.com/arizeosalac">
+                    <img src="https://avatars.githubusercontent.com/u/177637669?v=4" width="100;" alt="arizeosalac"/>
+=======
+>>>>>>> Stashed changes
+                    <br />
+                    <sub><b>TosinGeorge</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/asolavi">
+                    <img src="https://avatars.githubusercontent.com/u/131155817?v=4" width="100;" alt="asolavi"/>
+                    <br />
+                    <sub><b>asolavi</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
+            <td align="center">
+<<<<<<< Updated upstream
+                <a href="https://github.com/rajesh-ieg">
+                    <img src="https://avatars.githubusercontent.com/u/120284682?v=4" width="100;" alt="rajesh-ieg"/>
+                    <br />
+=======
                 <a href="https://github.com/arizeosalac">
                     <img src="https://avatars.githubusercontent.com/u/177637669?v=4" width="100;" alt="arizeosalac"/>
                     <br />
                     <sub><b>arizeosalac</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/SermishaNarayana">
                     <img src="https://avatars.githubusercontent.com/u/156903227?v=4" width="100;" alt="SermishaNarayana"/>
@@ -465,6 +536,7 @@ The documentation is available here: [documentation](https://pypsa-earth.readthe
                 <a href="https://github.com/rajesh-ieg">
                     <img src="https://avatars.githubusercontent.com/u/120284682?v=4" width="100;" alt="rajesh-ieg"/>
                     <br />
+>>>>>>> Stashed changes
                     <sub><b>rajesh-ieg</b></sub>
                 </a>
             </td>
@@ -498,6 +570,11 @@ The documentation is available here: [documentation](https://pypsa-earth.readthe
                     <sub><b>gianvicolux</b></sub>
                 </a>
             </td>
+<<<<<<< Updated upstream
+=======
+		</tr>
+		<tr>
+>>>>>>> Stashed changes
             <td align="center">
                 <a href="https://github.com/rsparks3">
                     <img src="https://avatars.githubusercontent.com/u/30065966?v=4" width="100;" alt="rsparks3"/>
@@ -542,6 +619,8 @@ The documentation is available here: [documentation](https://pypsa-earth.readthe
                     <sub><b>pitmonticone</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/PierreKara1">
                     <img src="https://avatars.githubusercontent.com/u/160237120?v=4" width="100;" alt="PierreKara1"/>
@@ -593,6 +672,8 @@ The documentation is available here: [documentation](https://pypsa-earth.readthe
                     <sub><b>HanaElattar</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/EmreYorat">
                     <img src="https://avatars.githubusercontent.com/u/93644024?v=4" width="100;" alt="EmreYorat"/>

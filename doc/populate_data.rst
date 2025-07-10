@@ -11,7 +11,7 @@ a set of ``snakemake`` rules to identify the main data inputs for the network mo
 
 The following list of rules apply:
 
-- :mod:`build_cutout` prepares smaller weather data portions from `ERA5 <https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5>`_ for cutout ``africa-2013-era5``
+- :mod:`build_cutout` prepares smaller weather data portions from `ERA5 <https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5>`_ for cutout ``africa-2018-era5``
 - :mod:`build_bus_regions` determines `Voronoi cells <https://en.wikipedia.org/wiki/Voronoi_diagram>`_ for all substations
 - :mod:`build_powerplants` for today's thermal power plant capacities using `powerplantmatching <https://github.com/FRESNA/powerplantmatching>`_ allocating these to the closest substation for each powerplant
 - :mod:`build_natura_raster` for rasterising `World Database on Protected Areas (WDPA) <https://www.protectedplanet.net/en/resources/wdpa-manual>`_

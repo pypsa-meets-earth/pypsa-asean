@@ -88,7 +88,7 @@ An exemplary dependency graph (starting from the simplification rules) then look
 ``snapshots``
 =============
 
-Specifies the temporal range for the historical weather data, which is used to build the energy system model. It uses arguments to `pandas.date_range <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.date_range.html>`_. The date range must be in the past (before 2022). A well-tested year is 2013.
+Specifies the temporal range for the historical weather data, which is used to build the energy system model. It uses arguments to `pandas.date_range <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.date_range.html>`_. The date range must be in the past (before 2022). A well-tested year is 2018.
 
 .. literalinclude:: ../config.default.yaml
    :language: yaml

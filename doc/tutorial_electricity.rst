@@ -63,8 +63,8 @@ The temporal scope is set to a single week. This is to make sure that the model 
 .. code:: yaml
 
     snapshots:
-        start: "2013-03-1"
-        end: "2013-03-7"
+        start: "2018-03-1"
+        end: "2018-03-7"
 
 .. note::
     For more information on the configuration file, please refer to the :ref:`config` section.

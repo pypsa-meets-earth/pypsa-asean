@@ -19,8 +19,8 @@ scenario:
   opts: [Co2L-4H]
 
 snapshots:
-  start: "2013-03-1"
-  end: "2013-03-7"
+  start: "2018-03-1"
+  end: "2018-03-7"
 
 
 clean_osm_data_options:
@@ -43,23 +43,23 @@ atlite:
     # use 'base' to determine geographical bounds and time span from config
     # base:
     # module: era5
-    cutout-2013-era5-tutorial: {}
+    cutout-2018-era5-tutorial: {}
 
 renewable:
   onwind:
-    cutout: cutout-2013-era5-tutorial
+    cutout: cutout-2018-era5-tutorial
   offwind-ac:
-    cutout: cutout-2013-era5-tutorial
+    cutout: cutout-2018-era5-tutorial
   offwind-dc:
-    cutout: cutout-2013-era5-tutorial
+    cutout: cutout-2018-era5-tutorial
   solar:
-    cutout: cutout-2013-era5-tutorial
+    cutout: cutout-2018-era5-tutorial
   hydro:
-    cutout: cutout-2013-era5-tutorial
+    cutout: cutout-2018-era5-tutorial
     hydrobasins_level: 4
     hydro_max_hours: "energy_capacity_totals_by_country"
   csp:
-    cutout: cutout-2013-era5-tutorial
+    cutout: cutout-2018-era5-tutorial
 
 
 solving:

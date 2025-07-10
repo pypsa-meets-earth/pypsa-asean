@@ -76,7 +76,7 @@ wildcard_constraints:
     sopts="[-+a-zA-Z0-9\.\s]*",
     discountrate="[-+a-zA-Z0-9\.\s]*",
     demand="[-+a-zA-Z0-9\.\s]*",
-    h2export="[0-9]+m?|all",
+    h2export="[0-9]+(\.[0-9]+)?",
     planning_horizons="20[2-9][0-9]|2100",
 
 
@@ -1170,6 +1170,15 @@ rule prepare_sector_network:
     params:
         costs=config["costs"],
         electricity=config["electricity"],
+        fossil_reserves=config["fossil_reserves"],
+        h2_underground=config["custom_data"]["h2_underground"],
+        countries=config["countries"],
+        gadm_layer_id=config["build_shape_options"]["gadm_layer_id"],
+        alternative_clustering=config["cluster_options"]["alternative_clustering"],
+        h2_policy=config["policy_config"]["hydrogen"],
+        sector_options=config["sector"],
+        foresight=config["foresight"],
+        water_costs=config["custom_data"]["water_costs"],
     input:
         network=RESDIR
         + "prenetworks/elec_s{simpl}_{clusters}_ec_l{ll}_{opts}_{sopts}_{planning_horizons}_{discountrate}_{demand}_presec.nc",

@@ -45,7 +45,6 @@ This part of documentation collects descriptive release notes to capture the mai
 
 **Minor Changes and bug-fixing**
 
-<<<<<<< Updated upstream
 * Update code to reflect the Wikipedia source page for `prepare_transport_data_input`. `PR #1486 <https://github.com/pypsa-meets-earth/pypsa-earth/pull/1486>`__
 
 * Add efficiency gain and growth rates for other energy consumption and fill missing NaNs with 0. `PR #1468 <https://github.com/pypsa-meets-earth/pypsa-earth/pull/1468>`__
@@ -106,21 +105,12 @@ This part of documentation collects descriptive release notes to capture the mai
 
 * Integrate EIA data for US-specific CAGR and fuel shares for the sector model `PR #1372 <https://github.com/pypsa-meets-earth/pypsa-earth/pull/1400>`__
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
 * Revise naming of Wikipedia data for vehicles `PR #1422 <https://github.com/pypsa-meets-earth/pypsa-earth/pull/1422>`__
 
 * Monte Carlo: move qmc.discrepancy to logging only `PR #1418 <https://github.com/pypsa-meets-earth/pypsa-earth/pull/1418>`__
 
-<<<<<<< Updated upstream
 * Extending powerplant filter option to custom powerplants `PR #1465 <https://github.com/pypsa-meets-earth/pypsa-earth/pull/1465>`__
 
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 PyPSA-Earth 0.6.0
 =================
 

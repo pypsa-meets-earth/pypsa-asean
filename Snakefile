@@ -3,10 +3,12 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 import sys
+import os
+import warnings
+import pathlib
 
 sys.path.append("./scripts")
 
-from os.path import normpath, exists, isdir
 from shutil import copyfile, move
 
 from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
@@ -66,6 +68,14 @@ else:
     COSTS = "data/costs.csv"
 ATLITE_NPROCESSES = config["atlite"].get("nprocesses", 4)
 
+if config["electricity"]["base_network"] in ["osm-prebuilt", "osm-plus-prebuilt"]:
+    base_network_name = config["electricity"]["base_network"]
+    base_network_version = config["electricity"].get("base_network_version",0.1)
+    OSMDIR = f"data/{base_network_name}/{base_network_version}/"
+    osm_powerplants_fn=OSMDIR + "all_clean_generators.csv"
+else:
+    OSMDIR = "resources/" + RDIR + "base_network/"
+    osm_powerplants_fn="resources/" + RDIR + "osm/clean/all_clean_generators.csv"
 
 wildcard_constraints:
     simpl="[a-zA-Z0-9]*|all",
@@ -271,14 +281,10 @@ rule base_network:
         countries=config["countries"],
         base_network=config["base_network"],
     input:
-        osm_buses="resources/" + RDIR + "base_network/all_buses_build_network.csv",
-        osm_lines="resources/" + RDIR + "base_network/all_lines_build_network.csv",
-        osm_converters="resources/"
-        + RDIR
-        + "base_network/all_converters_build_network.csv",
-        osm_transformers="resources/"
-        + RDIR
-        + "base_network/all_transformers_build_network.csv",
+        osm_buses=OSMDIR + "all_buses_build_network.csv",
+        osm_lines=OSMDIR + "all_lines_build_network.csv",
+        osm_converters=OSMDIR + "all_converters_build_network.csv",
+        osm_transformers=OSMDIR + "all_transformers_build_network.csv",
         country_shapes="resources/" + RDIR + "shapes/country_shapes.geojson",
         offshore_shapes="resources/" + RDIR + "shapes/offshore_shapes.geojson",
     output:
@@ -490,14 +496,28 @@ if not config["enable"].get("build_natura_raster", False):
             shutil.copyfile(input[0], output[0])
 
 
+country_data = config["costs"].get("country_specific_data", "")
+countries = config.get("countries", [])
+
+if country_data and countries == [country_data]:
+    cost_directory = f"{country_data}/"
+elif country_data:
+    cost_directory = f"{country_data}/"
+    warnings.warn(
+        f"'country_specific_data' is set to '{country_data}', but 'countries' is {countries}. Make sure the '{country_data}' directory exists and that this is intentional."
+    )
+else:
+    cost_directory = ""
+
+
 if config["enable"].get("retrieve_cost_data", True):
 
     rule retrieve_cost_data:
         params:
-            version=config["costs"]["version"],
+            version=config["costs"]["technology_data_version"],
         input:
             HTTP.remote(
-                f"raw.githubusercontent.com/PyPSA/technology-data/{config['costs']['version']}/outputs/"
+                f"raw.githubusercontent.com/PyPSA/technology-data/{config['costs']['technology_data_version']}/outputs/{cost_directory}"
                 + "costs_{year}.csv",
                 keep_local=True,
             ),
@@ -586,7 +606,7 @@ rule build_powerplants:
         base_network="networks/" + RDIR + "base_extended.nc",
         pm_config="configs/powerplantmatching_config.yaml",
         custom_powerplants="data/custom_powerplants.csv",
-        osm_powerplants="resources/" + RDIR + "osm/clean/all_clean_generators.csv",
+        osm_powerplants=osm_powerplants_fn,
         #gadm_shapes="resources/" + RDIR + "shapes/MAR2.geojson",
         #using this line instead of the following will test updated gadm shapes for MA.
         #To use: downlaod file from the google drive and place it in resources/" + RDIR + "shapes/
@@ -923,7 +943,7 @@ if config["monte_carlo"]["options"].get("add_to_snakefile", False) == False:
         output:
             "results/" + RDIR + "networks/elec_s{simpl}_{clusters}_ec_l{ll}_{opts}.nc",
         log:
-            solver=normpath(
+            solver=os.path.normpath(
                 "logs/"
                 + RDIR
                 + "solve_network/elec_s{simpl}_{clusters}_ec_l{ll}_{opts}_solver.log"
@@ -994,7 +1014,7 @@ if config["monte_carlo"]["options"].get("add_to_snakefile", False) == True:
             + RDIR
             + "networks/elec_s{simpl}_{clusters}_ec_l{ll}_{opts}_{unc}.nc",
         log:
-            solver=normpath(
+            solver=os.path.normpath(
                 "logs/"
                 + RDIR
                 + "solve_network/elec_s{simpl}_{clusters}_ec_l{ll}_{opts}_{unc}_solver.log"

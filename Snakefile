@@ -66,9 +66,10 @@ else:
     COSTS = "data/costs.csv"
 ATLITE_NPROCESSES = config["atlite"].get("nprocesses", 4)
 
-if config["electricity"]["base_network"] == "osm-prebuilt":
-    osm_prebuilt_version = config["electricity"].get("osm-prebuilt-version",0.1)
-    OSMDIR = f"data/osm-prebuilt/{osm_prebuilt_version}/"
+if config["electricity"]["base_network"] in ["osm-prebuilt", "osm-plus-prebuilt"]:
+    base_network_name = config["electricity"]["base_network"]
+    base_network_version = config["electricity"].get("base_network_version",0.1)
+    OSMDIR = f"data/{base_network_name}/{base_network_version}/"
     osm_powerplants_fn=OSMDIR + "all_clean_generators.csv"
 else:
     OSMDIR = "resources/" + RDIR + "base_network/"

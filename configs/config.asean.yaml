@@ -9,7 +9,7 @@ run:
   shared_cutouts: true  # set to true to share the default cutout(s) across runs
                         # Note: value false requires build_cutout to be enabled
 
-countries: [BN, KH, ID, LA, MY, MM, PH, SG, TH, TL, VN]
+countries: [BN, KH, ID, LA, MM, MY, PH, SG, TH, TL, VN]
 
 enable:
   retrieve_databundle: false #  Recommended 'true', for the first run. Otherwise data might be missing.
@@ -20,5 +20,5 @@ enable:
   build_cutout: false
 
 electricity:
-  base_network: osm-prebuilt
-  osm-prebuilt-version: 0.1
+  base_network: osm-plus-prebuilt
+  base_network_version: 0.1

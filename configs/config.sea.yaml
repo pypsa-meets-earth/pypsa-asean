@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC0-1.0
 
 #VIRIO
-countries: [BN, KH, ID, LA, MY, MM, PH, SG, TH, VN]
+countries: [BN, KH, ID, LA, MM, MY, PH, SG, TH, TL, VN]
 
 focus_weights: # Focus weights based on land area
   BN: 0.001244
@@ -20,7 +20,7 @@ focus_weights: # Focus weights based on land area
 enable:
   retrieve_databundle: false #  Recommended 'true', for the first run. Otherwise data might be missing.
   retrieve_databundle_sector: false
-  retrieve_cost_data: false # true: retrieves cost data from technology data and saves in resources/costs.csv, false: uses cost data in data/costs.csv
+  retrieve_cost_data: true # true: retrieves cost data from technology data and saves in resources/costs.csv, false: uses cost data in data/costs.csv
   download_osm_data: false # If 'true', OpenStreetMap data will be downloaded for the above given countries
   build_natura_raster: false # If True, then an exclusion raster will be build
   build_cutout: false
@@ -91,16 +91,10 @@ sector:
     NZ_2030: 0.10
     NZ_2050: 0.36
 
-custom_data: #look for datac
-  gas_network: true # used osm data as placeholder 
-  clean_osm_data_options:
-  use_custom_lines: add_custom
-  path_custom_lines: ../pypsa-sea-data/custom_osm/custom_lines_exist_new_.geojson
-  use_custom_substations: add_custom
-  path_custom_substations: ../pypsa-sea-data/custom_osm/custom_substations_new_.geojson
+
 
 load_options:
-  prediction_year: 2050  # Load scenarios available with different prediction year (GDP, population)
+#  prediction_year: 2050  # Load scenarios available with different prediction year (GDP, population)
   scale: # scales all load time-series, i.e. 2 = doubles load
     BN: 2.204351157102163
     ID: 4.339903608046574
@@ -116,18 +110,27 @@ load_options:
 electricity:
   co2base: 6.748633e+08
   powerplants_filter: (DateOut >= 2050 or DateOut != DateOut)
+  base_network: osm-plus-prebuilt
+  base_network_version: 0.1
 
 costs:
   year: 2050
 
+build_shape_options:
+  simplify_gadm: false
 
+electricity:
+  base_network: osm-plus-prebuilt
+  base_network_version: 0.1
 
 transmission_projects:
   enable: true
   include:
-    EO8: true
+    AIMS: true
+  skip : []
   status:
   - in_planning
-  - under_consideration
+  - under_construction
   - existing
+  # - under_consideration
   new_link_capacity: keep #keep or zero

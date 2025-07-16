@@ -13,7 +13,7 @@ Inputs
 - ``networks/base_network.nc``:  Base network topology for the electricity grid. This is processed in :mod:`base_network.py`.
 - ``data/transmission_projects/"project_name"/``: Takes the transmission projects from the subfolder of data/transmission_projects. The subfolder name is the project name.
 - ``offshore_shapes.geojson``: Shapefile containing the offshore regions. Used to determine if a new bus should be added for a new line or link.
-- ``ASEAN_shape.geojson``: Shapefile containing the shape of Europe. Used to determine if a project is within the considered countries.
+- ``country_shapes.geojson``: Shapefile containing the shape of countries. Used to determine if a project is within the considered countries.
 
 Outputs
 -------
@@ -35,7 +35,7 @@ import pypsa
 import shapely
 from pypsa.descriptors import nominal_attrs
 from scipy import spatial
-from shapely.geometry import LineString, Point
+from shapely.geometry import LineString, Point, Polygon, MultiPolygon
 from _helpers import configure_logging, create_logger, read_csv_nafix
 
 logger = create_logger(__name__)
@@ -80,7 +80,7 @@ def connect_new_lines(
     n,
     new_buses_df, status,
     offshore_shapes=None,
-    ASEAN_shape=None,
+    country_shapes=None,
     distance_upper_bound=np.inf,
     bus_carrier="AC"
 ):
@@ -125,11 +125,11 @@ def connect_new_lines(
                 new_buses_df = pd.concat([new_buses_df, new_buses])
 
         # --- ONSHORE NEW BUSES ---
-        if not lines_port.match_distance.all() and ASEAN_shape is not None:
+        if not lines_port.match_distance.all() and country_shapes is not None:
             potential_new_buses = lines_port[~lines_port.match_distance]
 
             is_onshore = potential_new_buses.apply(
-                lambda x: ASEAN_shape.unary_union.contains(Point(x.x, x.y)),
+                lambda x: country_shapes.unary_union.contains(Point(x.x, x.y)),
                 axis=1
             )
             new_buses = potential_new_buses[is_onshore]
@@ -138,7 +138,7 @@ def connect_new_lines(
                 new_port, new_buses = add_new_buses(n, new_buses)
 
                 new_buses["country"] = new_buses.apply(
-                    lambda bus: find_country_for_bus(bus, ASEAN_shape), axis=1
+                    lambda bus: find_country_for_bus(bus, country_shapes), axis=1
                 )
 
                 new_buses["tag_substation"] = "transmission"
@@ -425,14 +425,13 @@ def get_project_files(path, skip=[]):
         lines[file.stem] = df
     return lines
 
-
-def remove_projects_outside_countries(lines, ASEAN_shape):
+def remove_projects_outside_countries(lines, region_shape):
     """
     Remove projects which are not in the considered countries.
     """
-    ASEAN_shape_prepped = shapely.prepared.prep(ASEAN_shape)
+    region_shape_prepped = shapely.prepared.prep(region_shape)
     is_within_covered_countries = lines["geometry"].apply(
-        lambda x: ASEAN_shape_prepped.contains(x)
+        lambda x: region_shape_prepped.contains(x)
     )
 
     if not is_within_covered_countries.all():
@@ -473,7 +472,8 @@ def add_projects(
     adjust_lines_df,
     adjust_links_df,
     new_buses_df,
-    ASEAN_shape,
+    region_shape,
+    country_shapes,
     offshore_shapes,
     path,
     plan,
@@ -483,7 +483,7 @@ def add_projects(
     lines_dict = get_project_files(path, skip=skip)
     for key, lines in lines_dict.items():
         logger.info(f"Processing {key.replace('_', ' ')} projects from {plan}.")
-        #lines = remove_projects_outside_countries(lines, ASEAN_shape)
+        lines = remove_projects_outside_countries(lines, region_shape)
         if isinstance(status, dict):
             status = status[plan]
         lines = lines.loc[lines.project_status.isin(status)]
@@ -491,7 +491,12 @@ def add_projects(
             continue
         if key == "new_lines":
             new_lines, new_buses_df = connect_new_lines(
-                lines, n, new_buses_df,status, bus_carrier="AC",ASEAN_shape=ASEAN_shape_geojson
+                lines, 
+                n, 
+                new_buses_df, 
+                status, 
+                bus_carrier="AC", 
+                country_shapes=country_shapes
             )
             duplicate_lines = find_closest_lines(
                 n.lines, new_lines, distance_upper_bound=0.10, type="new"
@@ -512,7 +517,7 @@ def add_projects(
                 offshore_shapes=offshore_shapes,
                 distance_upper_bound=0.4,
                 bus_carrier=["AC", "DC"],
-                ASEAN_shape=ASEAN_shape_geojson
+                country_shapes=country_shapes
             )
             duplicate_links = find_closest_lines(
                 n.links, new_links, distance_upper_bound=0.10, type="new"
@@ -605,6 +610,14 @@ def fill_length_from_geometry(line, line_factor=1.2):
     length = length / 1000 * line_factor
     return round(length, 1)
 
+def remove_holes(geom):
+    if geom.geom_type == 'Polygon':
+        return Polygon(geom.exterior)
+    elif geom.geom_type == 'MultiPolygon':
+        return MultiPolygon([Polygon(p.exterior) for p in geom.geoms])
+    else:
+        return geom  # In case it's something else
+
 
 if __name__ == "__main__":
     if "snakemake" not in globals():
@@ -624,9 +637,8 @@ if __name__ == "__main__":
     adjust_links_df = pd.DataFrame()
     new_buses_df = pd.DataFrame()
 
-    ASEAN_shape = gpd.read_file(snakemake.input.ASEAN_shape).loc[0, "geometry"]
-    ASEAN_shape_geojson = gpd.read_file(snakemake.input.ASEAN_shape)
-    ASEAN_shape_geojson = ASEAN_shape_geojson.rename(columns={"name": "country"})
+    region_shape = remove_holes(gpd.read_file(snakemake.input.region_shape).geometry[0])
+    country_shapes = gpd.read_file(snakemake.input.country_shapes).rename(columns={"name": "country"})
 
     offshore_shapes = gpd.read_file(snakemake.input.offshore_shapes).rename(
         {"name": "country"}, axis=1
@@ -649,7 +661,8 @@ if __name__ == "__main__":
                 adjust_lines_df,
                 adjust_links_df,
                 new_buses_df,
-                ASEAN_shape,
+                region_shape,
+                country_shapes,
                 offshore_shapes,
                 path=path,
                 plan=project,

@@ -164,4 +164,8 @@ if __name__ == "__main__":
     else:
         logger.info("No non-integer bus names detected.")
 
+    # Ensure 'under_construction' column contains only boolean values
+    n.links["under_construction"] = n.links["under_construction"] == True
+    n.lines["under_construction"] = n.links["under_construction"] == True
+
     n.export_to_netcdf(snakemake.output[0])

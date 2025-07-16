@@ -333,18 +333,19 @@ rule build_transmission_projects:
     input:
         base_network="networks/" + RDIR + "base.nc",
         offshore_shapes="resources/" + RDIR + "shapes/offshore_shapes.geojson",
-        ASEAN_shape="resources/" + RDIR + "shapes/country_shapes.geojson",
+        region_shape="resources/" + RDIR + "shapes/africa_shape.geojson",
+        country_shapes="resources/" + RDIR + "shapes/country_shapes.geojson",
         transmission_projects=lambda w: [
             "data/transmission_projects/" + name
             for name, include in config["transmission_projects"]["include"].items()
             if include
         ],
     output:
-        new_buses="data/transmission_projects/new_buses.csv",
-        new_lines="data/transmission_projects/new_lines.csv",
-        new_links="data/transmission_projects/new_links.csv",
-        adjust_lines="data/transmission_projects/adjust_lines.csv",
-        adjust_links="data/transmission_projects/adjust_links.csv",
+        new_buses="resources/" + RDIR + "transmission_projects/new_buses.csv",
+        new_lines="resources/" + RDIR + "transmission_projects/new_lines.csv",
+        new_links="resources/" + RDIR + "transmission_projects/new_links.csv",
+        adjust_lines="resources/" + RDIR + "transmission_projects/adjust_lines.csv",
+        adjust_links="resources/" + RDIR + "transmission_projects/adjust_links.csv",
 
     log:
         "logs/" + RDIR +"build_transmission_projects.log",
@@ -367,11 +368,11 @@ rule add_transmission_projects:
         network="networks/" + RDIR + "base.nc",
         transmission_projects=lambda w: (
             [
-                "data/transmission_projects/new_buses.csv",
-                "data/transmission_projects/new_lines.csv",
-                "data/transmission_projects/new_links.csv",
-                "data/transmission_projects/adjust_lines.csv",
-                "data/transmission_projects/adjust_links.csv",
+                "resources/" + RDIR + "transmission_projects/new_buses.csv",
+                "resources/" + RDIR + "transmission_projects/new_lines.csv",
+                "resources/" + RDIR + "transmission_projects/new_links.csv",
+                "resources/" + RDIR + "transmission_projects/adjust_lines.csv",
+                "resources/" + RDIR + "transmission_projects/adjust_links.csv",
 
             ] if config["transmission_projects"].get("enable", False) else []
         ),

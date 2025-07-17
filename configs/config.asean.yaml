@@ -29,11 +29,12 @@ electricity:
 transmission_projects:
   enable: true
   include:
+    ID_SuperGrid: true
     AIMS: true
   skip : []
   status:
   - in_planning
   - under_construction
   - existing
-  # - under_consideration
+  - under_consideration
   new_link_capacity: keep #keep or zero

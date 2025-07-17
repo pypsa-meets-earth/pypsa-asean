@@ -126,6 +126,7 @@ electricity:
 transmission_projects:
   enable: true
   include:
+    ID_SuperGrid: true
     AIMS: true
   skip : []
   status:

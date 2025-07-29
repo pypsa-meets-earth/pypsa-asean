@@ -499,6 +499,7 @@ if not config["enable"].get("build_natura_raster", False):
 
 country_data = config["costs"].get("country_specific_data", "")
 countries = config.get("countries", [])
+append_cost_data = config["costs"].get("append_cost_data", "")
 
 if country_data and countries == [country_data]:
     cost_directory = f"{country_data}/"
@@ -510,6 +511,10 @@ elif country_data:
 else:
     cost_directory = ""
 
+if append_cost_data:
+    cost_prefix = "pre_"
+else:
+    cost_prefix = ""
 
 if config["enable"].get("retrieve_cost_data", True):
 
@@ -523,7 +528,7 @@ if config["enable"].get("retrieve_cost_data", True):
                 keep_local=True,
             ),
         output:
-            "resources/" + RDIR + "costs_{year}.csv",
+            "resources/" + RDIR + cost_prefix + "costs_{year}.csv"
         log:
             "logs/" + RDIR + "retrieve_cost_data_{year}.log",
         resources:
@@ -531,6 +536,23 @@ if config["enable"].get("retrieve_cost_data", True):
         run:
             move(input[0], output[0])
 
+    rule append_cost_data:
+        params:
+            discount_rate=config["costs"]["discountrate"],
+            regional_factor=config["costs"]["regional_factor"],
+        input:
+            costs = "resources/" + RDIR + "pre_costs_{year}.csv",
+            app_costs = "data/AEO8-input/AEO8_Table_D15_Cost_Summary.csv",
+            declining_factor = "data/AEO8-input/AEO8_Table_D17_Declining_Factor.csv",
+            regional_factor = "data/AEO8-input/AEO8_Table_D18_Regional_Factor.csv",
+        output:
+            "resources/" + RDIR + "costs_{year}.csv",
+        log:
+            "logs/" + RDIR + "append_cost_data_{year}.log",
+        resources:
+            mem_mb=3000,
+        script:
+            "scripts/append_cost_data.py"
 
 rule build_demand_profiles:
     params:

@@ -2,12 +2,29 @@
 #
 # SPDX-License-Identifier: CC0-1.0
 
+version: 0.6.0
 foresight: myopic
 
 run:
   name: base-asean # use this to keep track of runs with different settings
   shared_cutouts: true  # set to true to share the default cutout(s) across runs
                         # Note: value false requires build_cutout to be enabled
+
+scenario:
+  clusters: [300]
+  opts: [Co2L-3h]
+  planning_horizons: # investment years for myopic and perfect; or costs year for overnight
+  - 2020
+  - 2025
+  - 2030
+  - 2035
+  - 2040
+  - 2045
+  - 2050
+  sopts:
+  - "144h"
+  demand:
+  - "BAU"
 
 countries: [BN, KH, ID, LA, MM, MY, PH, SG, TH, TL, VN]
 
@@ -38,3 +55,24 @@ transmission_projects:
   - existing
   - under_consideration
   new_link_capacity: keep #keep or zero
+
+costs:
+  append_cost_data: true
+  regional_factor: true
+
+sector:
+  land_transport_fuel_cell_share:
+    BAU_2020: 0.00
+    BAU_2030: 0.00
+    BAU_2040: 0.00
+    BAU_2050: 0.00
+  land_transport_electric_share:
+    BAU_2020: 0.00
+    BAU_2030: 0.00
+    BAU_2040: 0.00
+    BAU_2050: 0.00
+  shipping_hydrogen_share:
+    BAU_2020: 0.00
+    BAU_2030: 0.00
+    BAU_2040: 0.00
+    BAU_2050: 0.00

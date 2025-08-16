@@ -17,6 +17,7 @@ import pandas as pd
 import powerplantmatching as pm
 import pypsa
 import xarray as xr
+from _helpers import sanitize_carriers, sanitize_locations
 
 # from _helpers import (
 #     configure_logging,
@@ -577,6 +578,25 @@ def add_heating_capacities_installed_before_baseyear(
             )
 
 
+def filter_transmission_project_build_year(n, year):
+    """
+    Remove transmission with build year later than the planning horizon
+    """
+    links = n.links[(n.links.project_status != "") & (n.links.build_year > int(year))][
+        ["bus0", "bus1", "build_year", "p_nom"]
+    ]
+    lines = n.lines[(n.lines.build_year > int(year))][
+        ["bus0", "bus1", "build_year", "s_nom"]
+    ]
+
+    logger.info(
+        f"Remove transmission with build year later than {year}: \n{links}\n{lines}"
+    )
+
+    n.remove("Link", links.index)
+    n.remove("Line", lines.index)
+
+
 if __name__ == "__main__":
     if "snakemake" not in globals():
         from _helpers import mock_snakemake
@@ -626,6 +646,8 @@ if __name__ == "__main__":
     add_power_capacities_installed_before_baseyear(
         n, grouping_years_power, costs, baseyear
     )
+    if snakemake.params.tp_build_year:
+        filter_transmission_project_build_year(n, baseyear)
 
     # TODO: not implemented in -sec yet
     # if options["enable"]["heat"]:
@@ -659,6 +681,7 @@ if __name__ == "__main__":
 
     n.meta = dict(snakemake.config, **dict(wildcards=dict(snakemake.wildcards)))
 
-    # sanitize_carriers(n, snakemake.config)
+    sanitize_carriers(n, snakemake.config)
+    sanitize_locations(n)
 
     n.export_to_netcdf(snakemake.output[0])

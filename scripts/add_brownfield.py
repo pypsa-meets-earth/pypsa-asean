@@ -12,7 +12,11 @@ import numpy as np
 import pandas as pd
 import pypsa
 import xarray as xr
-from add_existing_baseyear import add_build_year_to_new_assets
+from _helpers import sanitize_carriers, sanitize_locations
+from add_existing_baseyear import (
+    add_build_year_to_new_assets,
+    filter_transmission_project_build_year,
+)
 
 # from pypsa.clustering.spatial import normed_or_uniform
 
@@ -257,7 +261,13 @@ if __name__ == "__main__":
 
     add_brownfield(n, n_p, year)
 
+    if snakemake.params.tp_build_year:
+        filter_transmission_project_build_year(n, year)
+
     disable_grid_expansion_if_limit_hit(n)
+
+    sanitize_carriers(n, snakemake.config)
+    sanitize_locations(n)
 
     n.meta = dict(snakemake.config, **dict(wildcards=dict(snakemake.wildcards)))
     n.export_to_netcdf(snakemake.output[0])

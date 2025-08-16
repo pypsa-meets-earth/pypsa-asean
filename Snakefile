@@ -1204,6 +1204,7 @@ rule prepare_sector_network:
         sector_options=config["sector"],
         foresight=config["foresight"],
         water_costs=config["custom_data"]["water_costs"],
+        co2_budget=config["co2_budget"],
     input:
         **branch(sector_enable["land_transport"], TRANSPORT),
         **branch(sector_enable["heat"], HEAT),
@@ -1278,6 +1279,7 @@ rule add_export:
     params:
         gadm_layer_id=config["build_shape_options"]["gadm_layer_id"],
         alternative_clustering=config["cluster_options"]["alternative_clustering"],
+        enable=config["export"]["enable"],
         store=config["export"]["store"],
         store_capital_costs=config["export"]["store_capital_costs"],
         export_profile=config["export"]["export_profile"],
@@ -2111,6 +2113,7 @@ if config["foresight"] == "myopic":
             sector=config["sector"],
             existing_capacities=config["existing_capacities"],
             costs=config["costs"],
+            tp_build_year=config["transmission_projects"]["set_by_build_year"],
         input:
             **branch(sector_enable["heat"], HEAT_BASEYEAR),
             network=RESDIR
@@ -2175,6 +2178,7 @@ if config["foresight"] == "myopic":
             snapshots=config["snapshots"],
             # drop_leap_day=config["enable"]["drop_leap_day"],
             carriers=config["electricity"]["renewable_carriers"],
+            tp_build_year=config["transmission_projects"]["set_by_build_year"],
         input:
             # unpack(input_profile_tech_brownfield),
             simplify_busmap="resources/" + RDIR + "bus_regions/busmap_elec_s{simpl}.csv",

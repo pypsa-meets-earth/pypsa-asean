@@ -728,8 +728,8 @@
 726,726,494,230000,False,substation,False,transmission,0,103.7114,17.3714,TH,POINT (103.7114 17.3714),False
 727,727,495,115000,False,substation,False,transmission,0,98.8723,19.0875,TH,POINT (98.8723 19.0875),True
 728,728,496,115000,False,substation,False,transmission,0,99.9182,20.1989,TH,POINT (99.9182 20.1989),True
-729,729,497,115000,False,substation,False,transmission,0,103.6358,18.3741,TH,POINT (103.6358 18.3741),True
-730,730,497,230000,False,substation,False,transmission,0,103.6368,18.3751,TH,POINT (103.6368 18.3751),False
+729,729,497,115000,False,substation,False,transmission,0,103.6398,18.3941,TH,POINT (103.6398 18.3941),True
+730,730,497,230000,False,substation,False,transmission,0,103.6408,18.3951,TH,POINT (103.6408 18.3951),False
 731,731,498,115000,False,substation,False,transmission,0,101.2627,6.8451,TH,POINT (101.2627 6.8451),True
 732,732,499,69000,False,substation,False,transmission,0,100.8098,14.4048,TH,POINT (100.8098 14.4048),True
 733,733,499,115000,False,substation,False,transmission,0,100.8108,14.4058,TH,POINT (100.8108 14.4058),False

@@ -81,3 +81,7 @@ Lines:
 
 Transformers:
 * transf_742_0
+
+Moved:
+* 730 Before: (103.668, 18.375) After: (103.6408, 18.395)
+* 729 Before: (103.6358, 18.374) After: (103.698, 18.394)

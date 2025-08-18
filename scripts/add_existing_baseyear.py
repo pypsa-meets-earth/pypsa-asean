@@ -581,9 +581,9 @@ def filter_transmission_project_build_year(n, year):
     """
     Remove transmission with build year later than the planning horizon
     """
-    links = n.links[(~n.links.project_status.isin(["",np.nan])) & (n.links.build_year > int(year))][
-        ["bus0", "bus1", "build_year", "project_status", "p_nom"]
-    ]
+    links = n.links[
+        (~n.links.project_status.isin(["", np.nan])) & (n.links.build_year > int(year))
+    ][["bus0", "bus1", "build_year", "project_status", "p_nom"]]
     lines = n.lines[(n.lines.build_year > int(year))][
         ["bus0", "bus1", "build_year", "s_nom"]
     ]

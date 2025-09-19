@@ -501,7 +501,6 @@ if not config["enable"].get("build_natura_raster", False):
 
 country_data = config["costs"].get("country_specific_data", "")
 countries = config.get("countries", [])
-append_cost_data = config["costs"].get("append_cost_data", "")
 
 if country_data and countries == [country_data]:
     cost_directory = f"{country_data}/"
@@ -512,11 +511,6 @@ elif country_data:
     )
 else:
     cost_directory = ""
-
-if append_cost_data:
-    cost_prefix = "pre_"
-else:
-    cost_prefix = ""
 
 if config["enable"].get("retrieve_cost_data", True):
 
@@ -530,7 +524,11 @@ if config["enable"].get("retrieve_cost_data", True):
                 keep_local=True,
             ),
         output:
-            "resources/" + RDIR + cost_prefix + "costs_{year}.csv",
+            branch(
+                config.get("asean_stats",{}).get("append_cost_data"),
+                "resources/" + RDIR + "pre_costs_{year}.csv",
+                "resources/" + RDIR + "costs_{year}.csv"
+            ),
         log:
             "logs/" + RDIR + "retrieve_cost_data_{year}.log",
         resources:
@@ -538,10 +536,10 @@ if config["enable"].get("retrieve_cost_data", True):
         run:
             move(input[0], output[0])
 
-    rule append_cost_data:
+    rule append_asean_cost_data:
         params:
             discount_rate=config["costs"]["discountrate"],
-            regional_factor=config["costs"]["regional_factor"],
+            regional_factor=config.get("asean_stats",{}).get("regional_factor", False),
         input:
             costs="resources/" + RDIR + "pre_costs_{year}.csv",
             app_costs="data/AEO8-input/AEO8_Table_D15_Cost_Summary.csv",
@@ -554,7 +552,7 @@ if config["enable"].get("retrieve_cost_data", True):
         resources:
             mem_mb=3000,
         script:
-            "scripts/append_cost_data.py"
+            "scripts/append_asean_cost_data.py"
 
 
 rule build_demand_profiles:
@@ -1119,6 +1117,8 @@ rule prepare_urban_percent:
 
 
 rule prepare_transport_data_input:
+    params:
+        override_land_transport=config.get("asean_stats",{}).get("override_land_transport"),
     output:
         transport_data_input="resources/" + SECDIR + "transport_data.csv",
     script:
@@ -1488,6 +1488,17 @@ rule build_base_energy_totals:
         "scripts/build_base_energy_totals.py"
 
 
+rule append_asean_cagr:
+    params:
+        asean_stats=config.get("asean_stats")
+    input:
+        "data/demand/growth_factors_cagr.csv",
+    output:
+        "resources/" + SECDIR + "ASEAN_growth_factors_cagr.csv",
+    script:
+        "scripts/append_asean_cagr.py"
+
+
 rule prepare_energy_totals:
     params:
         countries=config["countries"],
@@ -1496,7 +1507,11 @@ rule prepare_energy_totals:
     input:
         unsd_paths="resources/" + SECDIR + "energy_totals_base.csv",
         efficiency_gains_cagr="data/demand/efficiency_gains_cagr.csv",
-        growth_factors_cagr="data/demand/growth_factors_cagr.csv",
+        growth_factors_cagr=branch(
+            config.get("asean_stats",{}).get("append_cagr"),
+            "resources/" + SECDIR + "ASEAN_growth_factors_cagr.csv",
+            "data/demand/growth_factors_cagr.csv"
+        ),
         district_heating="data/demand/district_heating.csv",
         fuel_shares="data/demand/fuel_shares.csv",
     output:

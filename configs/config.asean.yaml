@@ -60,9 +60,15 @@ transmission_projects:
   - under_consideration
   new_link_capacity: keep #keep or zero
 
-costs:
+# costs:
+#   append_cost_data: true
+#   regional_factor: true
+
+asean_stats:
   append_cost_data: true
   regional_factor: true
+  append_cagr: true
+  override_land_transport: true
 
 sector:
   land_transport_fuel_cell_share:

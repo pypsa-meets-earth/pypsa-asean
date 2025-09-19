@@ -6,6 +6,8 @@ import logging
 import os
 import shutil
 from pathlib import Path
+import requests
+import json
 
 import country_converter as coco
 import numpy as np
@@ -109,6 +111,35 @@ def download_number_of_vehicles():
 
     return nbr_vehicles
 
+def download_ASEAN_number_of_vehicles():
+    headers = {"User-Agent": "Mozilla/5.0"}
+    url = "https://data.aseanstats.org/api/indicator/ASE.TRP.ROD.B.005"
+    response = requests.get(url, headers=headers)
+
+    try:
+        data = json.loads(response.text)
+    except json.JSONDecodeError as e:
+        logger.warning("Failed to read the file. Falling back on hard-coded data:", e)
+        return pd.DataFrame()
+
+    df = pd.DataFrame(data)
+    df = df[["country_code","year","value"]]
+    df = df.rename(columns={"country_code":"country","value":"number cars"})
+
+    # Find the latest year per country
+    latest_idx = df.groupby("country")['year'].idxmax()
+    df = df.loc[latest_idx]
+    df = df.drop(columns=["year"]).set_index("country")
+    df["number cars"] = pd.to_numeric(df["number cars"], errors="coerce")
+    df["number cars"] *= 1e3 # Value are in thousands
+
+    # Timor Leste data are added manually
+    df.loc["TL","number cars"] = 146596 # Hard coded from transport data
+
+    df = df.reset_index()
+
+    return df
+
 
 def download_CO2_emissions():
     """
@@ -157,7 +188,10 @@ if __name__ == "__main__":
     # store_path_data = Path.joinpath(Path().cwd(), "data")
     # country_list = country_list_to_geofk(snakemake.config["countries"])'
 
-    nbr_vehicles = download_number_of_vehicles().copy()
+    if snakemake.params.override_land_transport:
+        nbr_vehicles = download_ASEAN_number_of_vehicles()
+    else:
+        nbr_vehicles = download_number_of_vehicles().copy()
 
     CO2_emissions = download_CO2_emissions().copy()
 

@@ -1298,10 +1298,29 @@ rule add_export:
         + RDIR
         + "bus_regions/regions_onshore_elec_s{simpl}_{clusters}.geojson",
     output:
+        branch(
+            config.get("final_adjustment"),
+            RESDIR
+            + "prenetworks/elec_s{simpl}_{clusters}_ec_l{ll}_{opts}_{sopts}_{planning_horizons}_{discountrate}_{demand}_{h2export}.nc",
+            RESDIR
+            + "prenetworks/elec_s{simpl}_{clusters}_ec_l{ll}_{opts}_{sopts}_{planning_horizons}_{discountrate}_{demand}_{h2export}export.nc",
+        ),
+    script:
+        "scripts/add_export.py"
+
+
+rule final_asean_adjustment:
+    params:
+        electricity=config["electricity"],
+        final_adjustment=config.get("final_adjustment"),
+    input:
+        network=RESDIR
+        + "prenetworks/elec_s{simpl}_{clusters}_ec_l{ll}_{opts}_{sopts}_{planning_horizons}_{discountrate}_{demand}_{h2export}.nc",
+    output:
         RESDIR
         + "prenetworks/elec_s{simpl}_{clusters}_ec_l{ll}_{opts}_{sopts}_{planning_horizons}_{discountrate}_{demand}_{h2export}export.nc",
     script:
-        "scripts/add_export.py"
+        "scripts/final_asean_adjustment.py"
 
 
 rule override_respot:

@@ -541,7 +541,7 @@ if config["enable"].get("retrieve_cost_data", True):
     rule append_cost_data:
         params:
             discount_rate=config["costs"]["discountrate"],
-            regional_factor=config["costs"]["regional_factor"],
+            regional_factor=config["costs"].get("regional_factor"),
         input:
             costs="resources/" + RDIR + "pre_costs_{year}.csv",
             app_costs="data/AEO8-input/AEO8_Table_D15_Cost_Summary.csv",

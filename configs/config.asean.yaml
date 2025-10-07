@@ -6,8 +6,8 @@ version: 0.7.0
 foresight: myopic
 
 run:
-  name: baseline-3h # use this to keep track of runs with different settings
-  sector_name: baseline-3h
+  name: baseline-no-projects-3H # use this to keep track of runs with different settings
+  sector_name: baseline-no-projects-3H
   shared_cutouts: true  # set to true to share the default cutout(s) across runs
                         # Note: value false requires build_cutout to be enabled
 
@@ -16,7 +16,10 @@ summary_dir: results/
 
 scenario:
   clusters: [100]
-  opts: ""
+  ll: 
+  - "v2.0"
+  opts: 
+  - "EQ0.7c"
   planning_horizons: # investment years for myopic and perfect; or costs year for overnight
   - 2025
   - 2030
@@ -94,15 +97,14 @@ focus_weights:
 
 co2_budget:
   enable: false
-  overwrite: true
-  compare: 1e+09 # choose from: [co2limit, co2base, absolute, {float}]
+  override_co2opt: true
+  co2base_value: 1.0e+09 # choose from: [co2limit, co2base, absolute, {float}]
   year:
-    2020: 1.0
-    2025: 0.85
-    2030: 0.70
-    2035: 0.55
-    2040: 0.40
-    2045: 0.25
+    2025: 1.0
+    2030: 0.82
+    2035: 0.64
+    2040: 0.46
+    2045: 0.28
     2050: 0.1
 
 electricity:
@@ -112,8 +114,8 @@ electricity:
 transmission_projects:
   enable: true
   include:
-    ID_SuperGrid: true
-    AIMS: true
+    ID_SuperGrid: false
+    AIMS: false
   skip: []
   status:
   - in_planning

@@ -247,7 +247,7 @@ def build_demand_profiles(
 
             # Obtain only the profile, not the entire demand
             gegis_load_new["Electricity demand"] *= (
-                1 / gegis_load_new["Electricity demand"].max()
+                1 / gegis_load_new["Electricity demand"].mean()
             )
             gegis_load = pd.concat([gegis_load, gegis_load_new])
 

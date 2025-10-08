@@ -501,7 +501,6 @@ if not config["enable"].get("build_natura_raster", False):
 
 country_data = config["costs"].get("country_specific_data", "")
 countries = config.get("countries", [])
-append_cost_data = config["costs"].get("append_cost_data", "")
 
 if country_data and countries == [country_data]:
     cost_directory = f"{country_data}/"
@@ -512,11 +511,6 @@ elif country_data:
     )
 else:
     cost_directory = ""
-
-if append_cost_data:
-    cost_prefix = "pre_"
-else:
-    cost_prefix = ""
 
 if config["enable"].get("retrieve_cost_data", True):
 
@@ -530,7 +524,11 @@ if config["enable"].get("retrieve_cost_data", True):
                 keep_local=True,
             ),
         output:
-            "resources/" + RDIR + cost_prefix + "costs_{year}.csv",
+            branch(
+                config["costs"].get("append_cost_data"),
+                "resources/" + RDIR + "pre_costs_{year}.csv",
+                "resources/" + RDIR + "costs_{year}.csv"
+            )
         log:
             "logs/" + RDIR + "retrieve_cost_data_{year}.log",
         resources:
@@ -2132,7 +2130,7 @@ if config["foresight"] == "myopic":
             sector=config["sector"],
             existing_capacities=config["existing_capacities"],
             costs=config["costs"],
-            tp_build_year=config["transmission_projects"]["set_by_build_year"],
+            transmission_projects=config["transmission_projects"],
         input:
             **branch(sector_enable["heat"], HEAT_BASEYEAR),
             network=RESDIR
@@ -2197,7 +2195,7 @@ if config["foresight"] == "myopic":
             snapshots=config["snapshots"],
             # drop_leap_day=config["enable"]["drop_leap_day"],
             carriers=config["electricity"]["renewable_carriers"],
-            tp_build_year=config["transmission_projects"]["set_by_build_year"],
+            transmission_projects=config["transmission_projects"],
         input:
             # unpack(input_profile_tech_brownfield),
             simplify_busmap="resources/" + RDIR + "bus_regions/busmap_elec_s{simpl}.csv",

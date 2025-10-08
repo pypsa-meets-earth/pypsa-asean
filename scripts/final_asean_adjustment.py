@@ -339,28 +339,6 @@ def readjust_existing_interconnections(n):
     logger.info("Activate: Readjust existing interconnections")
 
 
-def filter_transmission_by_year(n, planning_horizons, delay_construction=0):
-    """
-    Filter transmission lines and links in the network based on the build year.
-    """
-    filter_year = max(int(planning_horizons) - delay_construction, 2024)
-
-    drop_lines = n.lines[n.lines.build_year > filter_year].index
-    drop_links = n.links[n.links.build_year > filter_year].index
-
-    n.mremove("Line", drop_lines)
-    n.mremove("Link", drop_links)
-
-    logger_text = f"Activate: Filter transmission by the year {planning_horizons}."
-
-    if delay_construction:
-        logger_text += (
-            f"\nThis is due to delayed construction by {delay_construction} years."
-        )
-
-    logger.info(logger_text)
-
-
 if __name__ == "__main__":
     if "snakemake" not in globals():
         from _helpers import mock_snakemake
@@ -397,11 +375,5 @@ if __name__ == "__main__":
 
     if options["readjust_existing_interconnections"]:
         readjust_existing_interconnections(n)
-
-    filter_transmission_by_year(
-        n,
-        planning_horizons,
-        options.get("delay_construction", 0),
-    )
 
     n.export_to_netcdf(snakemake.output[0])

@@ -182,7 +182,7 @@ sector:
 
 policy_config:
   hydrogen:
-    temporal_matching: "no_res_matching"
+    temporal_matching: "no_temporal_matching"
 
 export:
   enable: false

@@ -42,6 +42,8 @@ This part of documentation collects descriptive release notes to capture the mai
 
 **Minor Changes and bug-fixing**
 
+* Add heuristics to infer missing hydropower technologies: if the energy-to-capacity ratio exceeds the threshold defined in `hydro_min_inflow_pu`, the plant is classified as a reservoir. Otherwise, it is treated as run-of-river `PR #1683 <https://github.com/pypsa-meets-earth/pypsa-earth/pull/1683>`__
+
 * Fix issues where gas and biomass powerplant capacity were not added in ``add_existing_baseyear.py``. Replace `urban central solid biomass CHP` with `biomass` for historical capacity `PR #1678 <https://github.com/pypsa-meets-earth/pypsa-earth/pull/1678>`__
 
 * Avoid creating duplicate conventional generators by setting `keep_existing_capacities` to `false`. Convert CCGT as links in `prepare_sector_network` `PR #1630 <https://github.com/pypsa-meets-earth/pypsa-earth/pull/1630>`__

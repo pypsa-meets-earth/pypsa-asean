@@ -232,7 +232,7 @@ final_adjustment:
     2050: 3.0363e+09
 
   redistribute_industry: true
-  industry_share:
+  industry_share: # Current IEA industry share https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser
     BN: 0.30
     KH: 0.36
     ID: 0.50

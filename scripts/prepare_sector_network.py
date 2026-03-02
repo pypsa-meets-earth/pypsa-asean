@@ -3389,7 +3389,7 @@ if __name__ == "__main__":
         )
 
     if enable["biomass"]:
-        add_biomass(n, costs)
+        add_biomass(n, costs, options, pop_layout)
 
     if enable["industry"]:
         add_industry(

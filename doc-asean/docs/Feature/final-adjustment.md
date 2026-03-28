@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText:  PyPSA-ASEAN, PyPSA-Earth and PyPSA-Eur Authors
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
 # Final Adjustment
 
 This section details the `scripts/final_asean_adjustment.py` script, which performs several critical final modifications to the PyPSA-ASEAN model before optimization, ensuring it accurately reflects specific scenarios related to network scope, demand growth, and transmission infrastructure.

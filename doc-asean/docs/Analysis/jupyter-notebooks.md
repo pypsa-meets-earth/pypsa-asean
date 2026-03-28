@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText:  PyPSA-ASEAN, PyPSA-Earth and PyPSA-Eur Authors
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
 # Jupyter Notebooks
 
 This document briefly describes the Jupyter notebooks in the `notebooks/` folder and gives quick usage notes so you can reproduce the figures and tables used in the PyPSA-ASEAN analysis.
@@ -36,4 +41,3 @@ The `regional_analysis.ipynb` focuses on the regional dimension of the scenario 
 ## Sensitivity Analysis
 
 The `sensitivity_analysis.ipynb` compares the results of sensitivity scenarios with those of a selected benchmark scenario in terms of total energy mix and system cost.
-

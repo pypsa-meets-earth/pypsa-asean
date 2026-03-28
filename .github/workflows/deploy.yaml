@@ -6,38 +6,38 @@ on:
   # Trigger the workflow on push to main branch
   push:
     branches:
-      - main
-      - dev/asean_v0
-      - scenario/paper_v1
+    - main
+    - dev/asean_v0
+    - scenario/paper_v1
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
+    - name: Checkout repository
+      uses: actions/checkout@v6
 
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.x'
+    - name: Set up Python
+      uses: actions/setup-python@v6
+      with:
+        python-version: '3.x'
 
-      - name: Install dependencies
-        run: |
-          pip install mkdocs mkdocs-material
+    - name: Install dependencies
+      run: |
+        pip install mkdocs mkdocs-material
 
-      - name: Build MkDocs site
-        run: |
-          mkdocs build -f doc-asean/mkdocs.yml
+    - name: Build MkDocs site
+      run: |
+        mkdocs build -f doc-asean/mkdocs.yml
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+    - name: Setup Pages
+      uses: actions/configure-pages@v5
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: doc-asean/site
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v4
+      with:
+        path: doc-asean/site
 
   deploy:
     runs-on: ubuntu-latest
@@ -52,6 +52,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4

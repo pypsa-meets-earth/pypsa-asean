@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText:  PyPSA-ASEAN, PyPSA-Earth and PyPSA-Eur Authors
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
 # Download Scenarios
 
 The PyPSA scenario results and sensitivity models can be downloaded here:
@@ -28,4 +33,3 @@ Descriptions and usage instructions for each notebook are provided [here](jupyte
 [PyPSA App](https://github.com/PyPSA/pypsa-app) is a self-hosted web application for analyzing and visualizing PyPSA networks, with modular architecture designed to extend into workflow execution, network editing, optimization, and custom integrations.
 
 > **Warning:** This app is in early development.
-

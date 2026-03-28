@@ -1,6 +1,6 @@
-# SPDX-FileCopyrightText: PyPSA-ASEAN, PyPSA-Earth and PyPSA-Eur Authors
+# SPDX-FileCopyrightText:  PyPSA-ASEAN, PyPSA-Earth and PyPSA-Eur Authors
 #
-# SPDX-License-Identifier: CC0-1.0
+# SPDX-License-Identifier: AGPL-3.0-or-later
 
 version: 0.7.0
 foresight: myopic
@@ -55,9 +55,7 @@ build_shape_options:
   simplify_gadm: false
 
 subregion: # remove 'false' if subregion are to be specified
-  enable:
-    simplify_network: true
-    cluster_network: true
+  method: gadm
   define_by_gadm:
     ID_Java-Bali: [ID.2_1, ID.4_1, ID.7_1, ID.9_1, ID.10_1, ID.11_1, ID.33_1]
     ID_Kalimantan: [ID.12_1, ID.13_1, ID.14_1, ID.34_1, ID.35_1]
@@ -158,14 +156,11 @@ sector:
     residential: true
     services: true
 
-  biomass_transport: false
-  solid_biomass_potential: 360 # TWh/a, technical maximum in Southeast Asia (higher granular data needed). https://doi.org/10.1016/j.energy.2017.06.162
-  # biogas_potential: 0.5 # TODO find ASEAN equivalent # TWh/a, Potential of whole modelled area
-
   hydrogen:
     network: false
 
-  co2_network: false
+  # ------------------- HEAT SECTOR -------------------
+  # ------------------- LAND TRANSPORT SECTOR -------------------
 
   land_transport_fuel_cell_share:
     DEC_2020: 0.00
@@ -192,8 +187,24 @@ sector:
     DEC_2045: 0.00
     DEC_2050: 0.00
 
+  # ------------------- BIOMASS SECTOR -------------------
+
+  biomass_transport: false
+  solid_biomass_potential: 360 # TWh/a, technical maximum in Southeast Asia (higher granular data needed). https://doi.org/10.1016/j.energy.2017.06.162
+  # biogas_potential: 0.5 # TODO find ASEAN equivalent # TWh/a, Potential of whole modelled area
+
+  # ------------------- ELECTRICITY DISTRIBUTION GRID -------------------
+
   solar_rooftop: # adds distribution side customer rooftop PV (only work if electricity_distribution_grid: true)
     use_building_size: true
+
+  # ------------------- SHIPPING & AVIATION SECTOR -------------------
+  # ------------------- CCUS & CONVERSION OPTIONS -------------------
+
+  co2_network: false
+
+  # ------------------- INDUSTRY OPTIONS -------------------
+  # ------------------- POWERPLANTS OPTIONS -------------------
 
 policy_config:
   hydrogen:

@@ -341,7 +341,7 @@ rule base_network:
         offshore_shapes="resources/" + RDIR + "shapes/offshore_shapes.geojson",
     output:
         branch(
-            config.get("transmission_projects",{}).get("enable"),
+            config.get("transmission_projects", {}).get("enable"),
             "networks/" + RDIR + "base_pre_ext.nc",
             "networks/" + RDIR + "base.nc",
         ),

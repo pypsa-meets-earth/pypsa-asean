@@ -1,6 +1,11 @@
+<!--
+SPDX-FileCopyrightText:  PyPSA-ASEAN, PyPSA-Earth and PyPSA-Eur Authors
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
 # Scenarios Configuration
 
-This section details the scenarios settings for PyPSA-ASEAN. This is the scenarios excerpt from the paper: 
+This section details the scenarios settings for PyPSA-ASEAN. This is the scenarios excerpt from the paper:
 
 Three network configurations were examined, ranging from nationally oriented development to a fully meshed regional grid, to explore the impact of regional integration.
 

@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText:  PyPSA-ASEAN, PyPSA-Earth and PyPSA-Eur Authors
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
 # PyPSA-ASEAN
 
 **PyPSA-ASEAN: An ASEAN-Focused Sector-Coupled Open-Source Multi-Energy System Model**

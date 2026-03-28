@@ -71,6 +71,27 @@ def check_config_version(config, fp_config=CONFIG_DEFAULT_PATH):
         )
 
 
+def update_cutout_config(config):
+    """
+    Update renewable cutout settings in the configuration.
+
+    This function replaces any `"auto"` cutout entries in the
+    `config["renewables"]` section with the default cutout specified in
+    `config["atlite"]["default"]`.
+    """
+    cutout_default = config["atlite"]["default"]
+
+    for tech in config["renewable"]:
+        cutout_res = config["renewable"][tech]["cutout"]
+
+        if cutout_res != "auto":
+            continue
+
+        config["renewable"][tech]["cutout"] = cutout_default
+
+    return config
+
+
 def handle_exception(exc_type, exc_value, exc_traceback):
     """
     Customise errors traceback.
@@ -1376,9 +1397,16 @@ def _get_shape_col_gdf(path_to_gadm, co, gadm_layer_id, gadm_clustering):
                     gdf_shapes[col] = gdf_shapes[col].apply(
                         lambda name: three_2_two_digits_country(name[:3]) + name[3:]
                     )
-        else:
-            gdf_shapes = get_GADM_layer(co, gadm_layer_id)
-            col = "GID_{}".format(gadm_layer_id)
+            elif gdf_shapes[col][0][:2].isalpha() and gdf_shapes[col][0][:3].isalpha():
+                gdf_shapes[col] = gdf_shapes[col].apply(
+                    lambda name: three_2_two_digits_country(name[:3]) + name[3:]
+                )
+            else:
+                gdf_shapes = get_GADM_layer([co], gadm_layer_id)
+                col = "GID_{}".format(gadm_layer_id)
+                gdf_shapes[col] = gdf_shapes[col].apply(
+                    lambda name: three_2_two_digits_country(name[:3]) + name[3:]
+                )
     gdf_shapes = gdf_shapes[gdf_shapes[col].str.contains(co)]
     return gdf_shapes, col
 

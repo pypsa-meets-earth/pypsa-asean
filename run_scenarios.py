@@ -161,7 +161,7 @@ def main():
         # Duplicate files:
         from pathlib import Path
 
-        duplicate_file = ["resources/energy_totals_base.csv"]
+        duplicate_file = []
 
         for file in duplicate_file:
             parts = Path(file).parts

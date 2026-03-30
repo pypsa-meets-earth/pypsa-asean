@@ -425,6 +425,30 @@ databundles:
       protectedplanet: https://d1gam3xoknrgr2.cloudfront.net/current/WDPA_{month:s}{year:d}_Public_shp.zip
     output: [data/landcover/world_protected_areas/*]
 
+  # cutouts bundle of the cutouts folder for ASEAN countries
+  # Size about 7.3 GB (zipped)
+  bundle_cutouts_ASEAN:
+    countries: ["ASEAN"]
+    category: cutouts
+    destination: "cutouts"
+    urls:
+      gdrive: https://drive.google.com/file/d/1JYa1-Xwvw8bsnOn1g6-t1gcfL-b5dxAO/view?usp=sharing
+    output: [cutouts/asean-2013-era5.nc]
+    disable_by_opt:
+      build_cutout: [all]
+
+  # tutorial bundle of the cutouts folder for ASEAN countries
+  bundle_cutouts_tutorial_ASEAN:
+    countries: ["ASEAN"]
+    tutorial: true
+    category: cutouts
+    destination: "cutouts"
+    urls:
+      gdrive: https://drive.google.com/file/d/1GnhKM0FvlyBo0al2Zg5jhlhdoyz5zenA/view?usp=sharing
+    output: [cutouts/asean-2013-era5-tutorial.nc]
+    disable_by_opt:
+      build_cutout: [all]
+
     # # Backup tutorial bundles with no gadm-like data; for reference:
     # # https://github.com/pypsa-meets-earth/pypsa-earth/issues/1258
 

@@ -507,7 +507,7 @@ continent_regions:
   SEAR: ["LA", "TH", "KH", "VN", "PH", "MY", "SG", "BN", "ID"]  # SOUTHEASTERN ASIAN REGION
   CASR: ["KZ", "KG", "UZ", "TM", "TJ"]  # CENTRAL ASIAN REGION
   SASR: ["MM", "BD", "BT", "NP", "IN", "LK", "PK", "AF"]  # SOUTHERN ASIAN REGION
-  ASEAN: ["VN", "TH", "ID", "PH", "MY", "MM", "KH", "LA", "SG", "BN"]  # ASEAN
+  ASEAN: ["VN", "TH", "ID", "PH", "MY", "MM", "KH", "LA", "SG", "BN", "TL"]  # ASEAN
   MEAR: ["TR", "SY", "LB", "CY", "IQ", "IR", "JO", "IL", "PS", "AE", "YE", "KW", "BH", "QA", "SA", "OM"]  # MIDDLE EASTERN ASIAN REGION
   NACR: ["CA", "GL", "MX", "US"]  # American continent regions
   LACR: ["AR", "BO", "BR", "CL", "CO", "EC", "GF", "PE", "PY", "SR", "UY", "VE"]  # SOUTHERN LATIN AMERICAN REGION

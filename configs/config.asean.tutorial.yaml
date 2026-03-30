@@ -1,0 +1,27 @@
+# SPDX-FileCopyrightText:  PyPSA-ASEAN, PyPSA-Earth and PyPSA-Eur Authors
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+tutorial: true
+
+run:
+  name: baseline-aims-3H-tutorial # use this to keep track of runs with different settings
+  sector_name: baseline-aims-3H-tutorial
+
+scenario:
+  clusters: [50]
+  planning_horizons:
+  - 2030
+  - 2040
+  - 2050
+
+snapshots:
+  start: "2013-03-01"
+  end: "2013-03-06"
+
+atlite:
+  default: asean-2013-era5-tutorial
+
+sector:
+  solar_rooftop:
+    use_building_size: false

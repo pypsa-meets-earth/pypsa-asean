@@ -143,10 +143,6 @@ if __name__ == "__main__":
     for attr in ("links", "lines"):
         df = getattr(n, attr)
         if "under_construction" in df.columns:
-            df["under_construction"] = (
-                df["under_construction"]
-                .fillna(0)
-                .astype(bool)
-            )
+            df["under_construction"] = df["under_construction"].fillna(0).astype(bool)
 
     n.export_to_netcdf(snakemake.output[0])

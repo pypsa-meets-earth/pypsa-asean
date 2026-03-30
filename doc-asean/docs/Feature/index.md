@@ -1,6 +1,11 @@
+<!--
+SPDX-FileCopyrightText:  PyPSA-ASEAN, PyPSA-Earth and PyPSA-Eur Authors
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
 # Feature
 
-This chapter describe PyPSA-ASEAN features that does not exist in the OS PyPSA-Earth. 
+This chapter describe PyPSA-ASEAN features that does not exist in the OS PyPSA-Earth.
 
 - [Append Cost Data](append-cost-data.md)
 - [ASEAN Grid Infrastructure](asean-grid-infrastructure.md)

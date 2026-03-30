@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText:  PyPSA-ASEAN, PyPSA-Earth and PyPSA-Eur Authors
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
 # Project Configuration
 
 This section details the configuration settings for PyPSA-ASEAN, primarily defined in `configs/config.asean.yaml`. These settings control various aspects of the model. Most of the configurations are available in the [PyPSA-Earth configuration website](https://pypsa-earth.readthedocs.io/en/latest/configuration.html)
@@ -240,7 +245,3 @@ These are minor adjustments to disable:
 ## `final_adjustment`
 
 This configuration is explained in [Final Adjustment](../Feature/final-adjustment.md).
-
-
-
-

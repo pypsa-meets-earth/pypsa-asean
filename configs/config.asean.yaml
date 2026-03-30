@@ -1,8 +1,10 @@
-# SPDX-FileCopyrightText: PyPSA-ASEAN, PyPSA-Earth and PyPSA-Eur Authors
+# SPDX-FileCopyrightText:  PyPSA-ASEAN, PyPSA-Earth and PyPSA-Eur Authors
 #
-# SPDX-License-Identifier: CC0-1.0
+# SPDX-License-Identifier: AGPL-3.0-or-later
 
-version: 0.7.0
+version: 0.8.0
+tutorial: false
+
 foresight: myopic
 
 run:
@@ -32,16 +34,26 @@ scenario:
   demand:
   - "DEC"
 
+snapshots:
+  start: "2013-01-01"
+  end: "2014-01-01"
+  inclusive: "left" # end is not inclusive
+
 countries: [BN, KH, ID, LA, MM, MY, PH, SG, TH, TL, VN]
 
 enable:
-  retrieve_databundle: false #  Recommended 'true', for the first run. Otherwise data might be missing.
-  retrieve_databundle_sector: false
-  download_global_buildings: false # If 'true', GlobalMLBuildingFootprints data will be downloaded for the above given countries
+  retrieve_databundle: true #  Recommended 'true', for the first run. Otherwise data might be missing.
   retrieve_cost_data: true # true: retrieves cost data from technology data and saves in resources/costs.csv, false: uses cost data in data/costs.csv
-  download_osm_data: false # If 'true', OpenStreetMap data will be downloaded for the above given countries
-  build_natura_raster: false # If True, then an exclusion raster will be build
+  retrieve_cutout: true
+  download_osm_data: true # If 'true', OpenStreetMap data will be downloaded for the above given countries
+  download_global_buildings: true # If 'true', GlobalMLBuildingFootprints data will be downloaded for the above given countries
+  build_natura_raster: false # If 'true', then an exclusion raster will be build. Otherwise use pregenerated raster.
   build_cutout: false
+  # If "build_cutout" : true, then environmental data is extracted according to `snapshots` date range and `countries`
+  # requires cds API key https://cds.climate.copernicus.eu/how-to-api
+  # More information https://atlite.readthedocs.io/en/latest/introduction.html#datasets
+  progress_bar: true # show progress bar during downloading routines and other long-running tasks
+  custom_busmap: false # if true, use "data/custom_busmap_elec_s{simpl}_{clusters}.csv" for the clustering instead of the clustering algorithms
 
 load_options:
   substitute: # Load profile not available for LA and TL, use substitute instead
@@ -54,10 +66,8 @@ load_options:
 build_shape_options:
   simplify_gadm: false
 
-subregion: # remove 'false' if subregion are to be specified
-  enable:
-    simplify_network: true
-    cluster_network: true
+subregion:
+  method: custom
   define_by_gadm:
     ID_Java-Bali: [ID.2_1, ID.4_1, ID.7_1, ID.9_1, ID.10_1, ID.11_1, ID.33_1]
     ID_Kalimantan: [ID.12_1, ID.13_1, ID.14_1, ID.34_1, ID.35_1]
@@ -72,6 +82,8 @@ subregion: # remove 'false' if subregion are to be specified
     PH_Luzon: [PH.1_1, PH.5_1, PH.7_1, PH.8_1, PH.10_1, PH.11_1, PH.12_1, PH.13_1, PH.17_1, PH.18_1, PH.19_1, PH.20_1, PH.23_1, PH.24_1, PH.33_1, PH.34_1, PH.35_1, PH.37_1, H.38_1, PH.39_1, PH.40_1, PH.45_1, PH.46_1, PH.47_1, PH.50_1, PH.55_1, PH.56_1, PH.57_1, PH.58_1, PH.59_1, PH.60_1, PH.61_1, PH.62_1, PH.63_1, PH.64_1, PH.65_1, PH.69_1, PH.76_1, PH.78_1]
     PH_Visayas: [PH.4_1, PH.6_1, PH.14_1, PH.15_1, PH.22_1, PH.25_1, PH.31_1, PH.32_1, PH.36_1, PH.43_1, PH.51_1, PH.52_1, PH.54_1, PH.66_1, PH.68_1, PH.71_1]
     PH_Mindanao: [PH.2_1, PH.3_1, PH.9_1, PH.16_1, PH.21_1, PH.26_1, PH.27_1, PH.28_1, PH.29_1, PH.30_1, PH.41_1, PH.42_1, PH.44_1, PH.48_1, PH.49_1, PH.53_1, PH.67_1, PH.70_1, PH.72_1, PH.73_1, PH.74_1, PH.75_1, PH.77_1, PH.79_1, PH.80_1, PH.81_1]
+  path_custom_shapes: "data/asean_custom_shapes.geojson"
+  path_custom_offshore: "data/asean_custom_offshore.geojson"
 
 focus_weights:
   BN: 0.0
@@ -138,12 +150,31 @@ cluster_options:
     p_threshold_merge_isolated: 0 # [MW] isolated buses are being merged into a single isolated bus if a bus mean power is below the specified threshold
     s_threshold_fetch_isolated: 0.1 # [-] a share of the national load for merging an isolated network into a backbone network
 
+atlite:
+  nprocesses: 4
+  cutouts:
+    asean-2013-era5:
+      module: era5
+      dx: 0.3 # cutout resolution
+      dy: 0.3 # cutout resolution
+      # The cutout time is automatically set by the snapshot range. See `snapshot:` option above and 'build_cutout.py'.
+      # time: ["2013-01-01", "2014-01-01"]  # to manually specify a different weather year (~70 years available)
+      # The cutout spatial extent [x,y] is automatically set by country selection. See `countires:` option above and 'build_cutout.py'.
+      # x: [-12., 35.]  # set cutout range manual, instead of automatic by boundaries of country
+      # y: [33., 72]    # manual set cutout range
+    asean-2013-era5-tutorial:
+      module: era5
+      dx: 0.3 # cutout resolution
+      dy: 0.3 # cutout resolution
+      time: ["2013-03-01", "2013-03-07"]  # to manually specify a different weather year (~70 years available)
+  default: asean-2013-era5
+
 costs:
   append_cost_data: true
   regional_factor: false
 
-demand_data:
-  update_data: false
+# demand_data:
+#   update_data: false
 
 sector:
   enable:
@@ -158,14 +189,11 @@ sector:
     residential: true
     services: true
 
-  biomass_transport: false
-  solid_biomass_potential: 360 # TWh/a, technical maximum in Southeast Asia (higher granular data needed). https://doi.org/10.1016/j.energy.2017.06.162
-  # biogas_potential: 0.5 # TODO find ASEAN equivalent # TWh/a, Potential of whole modelled area
-
   hydrogen:
     network: false
 
-  co2_network: false
+  # ------------------- HEAT SECTOR -------------------
+  # ------------------- LAND TRANSPORT SECTOR -------------------
 
   land_transport_fuel_cell_share:
     DEC_2020: 0.00
@@ -192,8 +220,24 @@ sector:
     DEC_2045: 0.00
     DEC_2050: 0.00
 
+  # ------------------- BIOMASS SECTOR -------------------
+
+  biomass_transport: false
+  solid_biomass_potential: 360 # TWh/a, technical maximum in Southeast Asia (higher granular data needed). https://doi.org/10.1016/j.energy.2017.06.162
+  # biogas_potential: 0.5 # TODO find ASEAN equivalent # TWh/a, Potential of whole modelled area
+
+  # ------------------- ELECTRICITY DISTRIBUTION GRID -------------------
+
   solar_rooftop: # adds distribution side customer rooftop PV (only work if electricity_distribution_grid: true)
     use_building_size: true
+
+  # ------------------- SHIPPING & AVIATION SECTOR -------------------
+  # ------------------- CCUS & CONVERSION OPTIONS -------------------
+
+  co2_network: false
+
+  # ------------------- INDUSTRY OPTIONS -------------------
+  # ------------------- POWERPLANTS OPTIONS -------------------
 
 policy_config:
   hydrogen:

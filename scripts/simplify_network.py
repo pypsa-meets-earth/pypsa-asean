@@ -19,15 +19,7 @@ Relevant Settings
         aggregation_strategies:
 
     costs:
-        year:
-        version:
-        rooftop_share:
-        USD2013_to_EUR2013:
-        dicountrate:
-        emission_prices:
-
-    electricity:
-        max_hours:
+        output_currency:
 
     lines:
         length_factor:
@@ -100,7 +92,6 @@ from _helpers import (
     update_config_dictionary,
     update_p_nom_max,
 )
-from add_electricity import load_costs
 from cluster_network import cluster_regions, clustering_for_n_clusters
 from pypsa.clustering.spatial import (
     aggregateoneport,
@@ -285,7 +276,7 @@ def _aggregate_and_move_components(
         n,
         connection_costs_to_bus,
         snakemake.output,
-        snakemake.params.costs["output_currency"],
+        snakemake.params.output_currency,
     )
 
     generator_strategies = aggregation_strategies["generators"]
@@ -992,19 +983,6 @@ if __name__ == "__main__":
 
     n = pypsa.Network(snakemake.input.network)
 
-    for col in ["project_status", "tags", "underground", "under_construction"]:
-        if col in n.lines.columns:
-            logger.info(f"Adjusting '{col}' column in lines.")
-
-            if col in ["project_status", "tags"]:
-                n.lines = n.lines.drop(columns=col)
-
-            elif col == "underground":
-                n.lines[col] = n.lines[col].replace(0, np.nan)
-
-            elif col == "under_construction":
-                n.lines[col] = n.lines[col].fillna(0).astype(bool)
-
     base_voltage = snakemake.params.electricity["base_voltage"]
     linetype = snakemake.params.config_lines["ac_types"][base_voltage]
     exclude_carriers = snakemake.params.cluster_options["simplify_network"].get(
@@ -1034,12 +1012,7 @@ if __name__ == "__main__":
 
     Nyears = n.snapshot_weightings.objective.sum() / 8760
 
-    technology_costs = load_costs(
-        snakemake.input.tech_costs,
-        snakemake.params.costs,
-        snakemake.params.electricity,
-        Nyears,
-    )
+    technology_costs = pd.read_csv(snakemake.input.tech_costs, index_col=0)
 
     n, simplify_links_map = simplify_links(
         n,
@@ -1143,51 +1116,29 @@ if __name__ == "__main__":
 
     # some entries in n.buses are not updated in previous functions, therefore can be wrong. as they are not needed
     # and are lost when clustering (for example with the simpl wildcard), we remove them for consistency:
-    buses_c = {
+    remove = [
         "symbol",
         "tags",
         "under_construction",
+        "onshore_bus",
+        "geometry",
+        "underground",
+        "project_status",
         "substation_lv",
         "substation_off",
-    }.intersection(n.buses.columns)
+    ]
 
-    n.buses = n.buses.drop(buses_c, axis=1)
-    conflict_rule = snakemake.params.cluster_options["simplify_network"].get(
-        "under_construction_conflict_resolution", "max"
-    )
-
-    if "under_construction" in n.lines.columns:
-        logger.info(
-            f"Resolving conflicts in under_construction by conservative rule ({conflict_rule})."
-        )
-        n.lines["under_construction"] = n.lines["under_construction"].astype(float)
-        n.lines["under_construction"] = (
-            n.lines.groupby(["bus0", "bus1"])["under_construction"]
-            .transform(conflict_rule)
-            .astype(bool)
-        )
+    n.buses.drop(remove, axis=1, inplace=True, errors="ignore")
+    n.lines.drop(remove, axis=1, errors="ignore", inplace=True)
 
     update_p_nom_max(n)
 
     # Option for subregion
-    subregion_config = snakemake.params.subregion
-    if subregion_config["enable"]["simplify_network"]:
-        if subregion_config["define_by_gadm"]:
-            logger.info("Activate subregion classificaition based on GADM")
-            subregion_shapes = snakemake.input.subregion_shapes
-        elif subregion_config["path_custom_shapes"]:
-            logger.info("Activate subregion classificaition based on custom shapes")
-            subregion_shapes = subregion_config["path_custom_shapes"]
-        else:
-            logger.warning("Although enabled, no subregion classificaition is selected")
-            subregion_shapes = False
-
-        if subregion_shapes:
-            crs = snakemake.params.crs
-            tolerance = subregion_config["tolerance"]
-            n = nearest_shape(n, subregion_shapes, crs, tolerance=tolerance)
-    else:
-        subregion_shapes = False
+    subregion_shapes = snakemake.input.get("subregion_shapes")
+    if subregion_shapes:
+        crs = snakemake.params.crs
+        tolerance = snakemake.config.get("subregion", {}).get("tolerance", 100)
+        n = nearest_shape(n, subregion_shapes, crs, tolerance=tolerance)
 
     p_threshold_drop_isolated = cluster_config.get("p_threshold_drop_isolated", False)
     p_threshold_merge_isolated = cluster_config.get("p_threshold_merge_isolated", False)
@@ -1214,8 +1165,8 @@ if __name__ == "__main__":
 
     if subregion_shapes:
         logger.info("Deactivate subregion classificaition")
-        country_shapes = snakemake.input.country_shapes
-        n = nearest_shape(n, country_shapes, crs, tolerance=tolerance)
+        original_shapes = snakemake.input.original_shapes
+        n = nearest_shape(n, original_shapes, crs, tolerance=tolerance)
 
     n.meta = dict(snakemake.config, **dict(wildcards=dict(snakemake.wildcards)))
     n.export_to_netcdf(snakemake.output.network)

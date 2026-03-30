@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText:  PyPSA-ASEAN, PyPSA-Earth and PyPSA-Eur Authors
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
 # ASEAN Grid Infrastructure
 
 This section details the modeling of the ASEAN electricity grid infrastructure within PyPSA-ASEAN, focusing on how national power development plans and the broader ASEAN Power Grid initiatives are integrated.

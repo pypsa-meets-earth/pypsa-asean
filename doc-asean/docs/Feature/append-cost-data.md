@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText:  PyPSA-ASEAN, PyPSA-Earth and PyPSA-Eur Authors
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
 # Regionalizing Cost Data
 
 This section details the `append_cost_data.py` script, unique to PyPSA-ASEAN, which adjusts the core technology cost assumptions in your model based on data from the 8th ASEAN Energy Outlook (AEO8). It explains its function and how to use it.

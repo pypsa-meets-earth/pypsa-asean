@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText:  PyPSA-ASEAN, PyPSA-Earth and PyPSA-Eur Authors
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
 # Dual Pull Request
 
 This section details how PyPSA-ASEAN employs a "dual pull request" merge strategy to efficiently integrate globally relevant features. This approach facilitates rapid implementation within PyPSA-ASEAN while ensuring that features are thoroughly reviewed and eventually merged into the upstream PyPSA-Earth project.

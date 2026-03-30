@@ -6,7 +6,8 @@
 Append cost data by readjusting to the currency of the main cost data (EUR or USD)
 """
 import pandas as pd
-from _helpers import create_logger, get_yearly_currency_exchange_rate, mock_snakemake
+from _helpers import create_logger, mock_snakemake
+from process_cost_data import get_yearly_currency_exchange_rate
 
 logger = create_logger(__name__)
 

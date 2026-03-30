@@ -25,7 +25,7 @@ from _helpers import sanitize_carriers, sanitize_locations
 #     update_config_from_wildcards,
 # )
 # from add_electricity import sanitize_carriers
-from prepare_sector_network import define_spatial, prepare_costs  # , cluster_heat_buses
+from prepare_sector_network import define_spatial  # , cluster_heat_buses
 
 logger = logging.getLogger(__name__)
 cc = coco.CountryConverter()
@@ -182,7 +182,9 @@ def add_power_capacities_installed_before_baseyear(n, grouping_years, costs, bas
     # Intermediate fix for DateIn & DateOut
     # Fill missing DateIn
     # TODO: revise CHP
-    biomass_i = df_agg.loc[df_agg.Fueltype.isin(["biomass", "urban central solid biomass CHP"])].index
+    biomass_i = df_agg.loc[
+        df_agg.Fueltype.isin(["biomass", "urban central solid biomass CHP"])
+    ].index
     if biomass_i.empty:
         mean = 0
     else:
@@ -654,16 +656,7 @@ if __name__ == "__main__":
     )
 
     Nyears = n.snapshot_weightings.generators.sum() / 8760.0
-    costs = prepare_costs(
-        snakemake.input.costs,
-        snakemake.config["costs"],
-        snakemake.params.costs["output_currency"],
-        snakemake.params.costs["fill_values"],
-        Nyears,
-        snakemake.params.costs["default_exchange_rate"],
-        snakemake.params.costs["future_exchange_rate_strategy"],
-        snakemake.params.costs["custom_future_exchange_rate"],
-    )
+    costs = pd.read_csv(snakemake.input.costs, index_col=0)
 
     grouping_years_power = snakemake.params.existing_capacities["grouping_years_power"]
     grouping_years_heat = snakemake.params.existing_capacities["grouping_years_heat"]

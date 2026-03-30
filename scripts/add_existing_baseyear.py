@@ -182,7 +182,7 @@ def add_power_capacities_installed_before_baseyear(n, grouping_years, costs, bas
     # Intermediate fix for DateIn & DateOut
     # Fill missing DateIn
     # TODO: revise CHP
-    biomass_i = df_agg.loc[df_agg.Fueltype == "urban central solid biomass CHP"].index
+    biomass_i = df_agg.loc[df_agg.Fueltype.isin(["biomass", "urban central solid biomass CHP"])].index
     if biomass_i.empty:
         mean = 0
     else:

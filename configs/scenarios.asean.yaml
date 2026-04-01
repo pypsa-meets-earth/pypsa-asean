@@ -23,8 +23,16 @@ baseline-aims-3H-tutorial:
     default: asean-2013-era5-tutorial
 
   sector:
+    enable:
+      land_transport: false # Ongoing issues for models with short timeframes
+
     solar_rooftop:
       use_building_size: false
+
+  solving:
+    solver:
+      name: glpk
+      options: glpk-default
 
 # ==== Baseline Scenarios ====
 # ============================

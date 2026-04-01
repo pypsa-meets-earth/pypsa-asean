@@ -30,3 +30,6 @@ clean:
 	snakemake -j1 solve_sector_networks --delete-all-output --configfile test/config.sector.yaml
 	snakemake -j1 solve_sector_networks_myopic --delete-all-output --configfile config.tutorial.yaml test/config.myopic.yaml
 	echo "Clean-up complete."
+
+scenarios:
+	python scripts/non_workflow/run_scenarios.py

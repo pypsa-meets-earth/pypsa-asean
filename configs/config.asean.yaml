@@ -82,8 +82,8 @@ subregion:
     PH_Luzon: [PH.1_1, PH.5_1, PH.7_1, PH.8_1, PH.10_1, PH.11_1, PH.12_1, PH.13_1, PH.17_1, PH.18_1, PH.19_1, PH.20_1, PH.23_1, PH.24_1, PH.33_1, PH.34_1, PH.35_1, PH.37_1, H.38_1, PH.39_1, PH.40_1, PH.45_1, PH.46_1, PH.47_1, PH.50_1, PH.55_1, PH.56_1, PH.57_1, PH.58_1, PH.59_1, PH.60_1, PH.61_1, PH.62_1, PH.63_1, PH.64_1, PH.65_1, PH.69_1, PH.76_1, PH.78_1]
     PH_Visayas: [PH.4_1, PH.6_1, PH.14_1, PH.15_1, PH.22_1, PH.25_1, PH.31_1, PH.32_1, PH.36_1, PH.43_1, PH.51_1, PH.52_1, PH.54_1, PH.66_1, PH.68_1, PH.71_1]
     PH_Mindanao: [PH.2_1, PH.3_1, PH.9_1, PH.16_1, PH.21_1, PH.26_1, PH.27_1, PH.28_1, PH.29_1, PH.30_1, PH.41_1, PH.42_1, PH.44_1, PH.48_1, PH.49_1, PH.53_1, PH.67_1, PH.70_1, PH.72_1, PH.73_1, PH.74_1, PH.75_1, PH.77_1, PH.79_1, PH.80_1, PH.81_1]
-  path_custom_shapes: "data/asean_custom_shapes.geojson"
-  path_custom_offshore: "data/asean_custom_offshore.geojson"
+  path_custom_shapes: "data/custom_subregion/asean_custom_shapes.geojson"
+  path_custom_offshore: "data/custom_subregion/asean_custom_offshore.geojson"
 
 focus_weights:
   BN: 0.0

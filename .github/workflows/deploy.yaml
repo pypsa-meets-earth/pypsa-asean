@@ -7,8 +7,7 @@ on:
   push:
     branches:
     - main
-    - dev/asean_v0
-    - scenario/paper_v1
+    - feature/asean-tutorial
 
 jobs:
   build:

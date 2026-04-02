@@ -425,6 +425,79 @@ databundles:
       protectedplanet: https://d1gam3xoknrgr2.cloudfront.net/current/WDPA_{month:s}{year:d}_Public_shp.zip
     output: [data/landcover/world_protected_areas/*]
 
+  ### ASEAN Specific Databundles
+
+  # data bundle containing the data of the data folder common to all regions of the world
+  bundle_data_tutorial_earth:
+    countries: [Earth]
+    category: data
+    tutorial: true
+    destination: "data"
+    urls:
+      zenodo: https://sandbox.zenodo.org/records/323567/files/bundle_data_earth.zip?download=1
+      gdrive: https://drive.google.com/file/d/1P4uMY464lgcp--8fAEYIJbKeNmHdg1Re/view?usp=drive_link
+    output:
+    - data/eez/eez_v11.gpkg
+    - data/gebco/GEBCO_2025_sub_ice.nc
+    - data/copernicus/PROBAV_LC100_global_v3.0.1_2019-nrt_Discrete-Classification-map_EPSG-4326.tif
+    - data/ssp2-2.6/2030/era5_2013/Africa.nc
+    - data/ssp2-2.6/2030/era5_2013/Asia.nc
+    - data/ssp2-2.6/2030/era5_2013/Europe.nc
+    - data/ssp2-2.6/2030/era5_2013/NorthAmerica.nc
+    - data/ssp2-2.6/2030/era5_2013/SouthAmerica.nc
+    - data/ssp2-2.6/2030/era5_2013/Oceania.nc
+
+  # resources bundle containing the resources folder for Africa only
+  bundle_natura_tutorial_earth:
+    countries: [Earth]
+    tutorial: true
+    category: natura
+    destination: "data/natura/"
+    urls:
+      zenodo: https://sandbox.zenodo.org/records/323567/files/natura_wpda_CC0.zip?download=1
+      gdrive: https://drive.google.com/file/d/1H-Y7p8UgnbEzJgo9qPc54BpDXS8loX7Y/view?usp=drive_link
+    output:
+    - data/natura/natura.tiff
+
+  # load tutorial hydrobasins bundle for Asia only
+  bundle_tutorial_hydrobasins_asia:
+    countries: [Asia]
+    tutorial: true
+    category: hydrobasins
+    destination: "data/hydrobasins"
+    urls:
+      hydrobasins:
+        base_url: https://data.hydrosheds.org/file/HydroBASINS/standard/
+        suffixes: ["as"]
+    unzip: true
+    output:
+    - data/hydrobasins/hybas_world.shp
+
+  bundle_subregion_ASEAN:
+    countries: ["ASEAN"]
+    category: subregion
+    destination: "data"
+    urls:
+      gdrive: https://drive.google.com/file/d/17WA9DpeR40eci1BXgwatLsZv6mfcITQb/view?usp=sharing
+    output:
+    - data/custom_subregion/asean_custom_shapes.geojson
+    - data/custom_subregion/asean_custom_offshore.geojson
+    disable_by_opt:
+      build_cutout: [all]
+
+  bundle_subregion_tutorial_ASEAN:
+    countries: ["ASEAN"]
+    tutorial: true
+    category: subregion
+    destination: "data"
+    urls:
+      gdrive: https://drive.google.com/file/d/17WA9DpeR40eci1BXgwatLsZv6mfcITQb/view?usp=sharing
+    output:
+    - data/custom_subregion/asean_custom_shapes.geojson
+    - data/custom_subregion/asean_custom_offshore.geojson
+    disable_by_opt:
+      build_cutout: [all]
+
   # cutouts bundle of the cutouts folder for ASEAN countries
   # Size about 7.3 GB (zipped)
   bundle_cutouts_ASEAN:

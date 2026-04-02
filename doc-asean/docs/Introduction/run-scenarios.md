@@ -130,9 +130,8 @@ To remove all generated outputs, use the `--delete-all-output` flag:
 snakemake solve_sector_networks --configfile configs/config.asean.yaml configs/tutorial.asean.yaml --delete-all-output -call
 ```
 
-!!! note
-    here are additional flags that are useful to debug
+These are extra flags that can help with debugging:
 
-    * `-n` performs a dry run
-    * `--rerun-trigger mtime` reuses existing files and avoids unnecessary reruns
-    * `--rerun-incomplete` reruns jobs with incomplete or corrupted outputs
+* `-n` performs a dry run
+* `--rerun-trigger mtime` reuses existing files and avoids unnecessary reruns
+* `--rerun-incomplete` reruns jobs with incomplete or corrupted outputs

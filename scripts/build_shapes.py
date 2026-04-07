@@ -279,19 +279,6 @@ def get_GADM_layer(
         # in the GADM processing of sub-national zones
         geodf_temp["GADM_ID"] = geodf_temp[f"GID_{cur_layer_id}"]
 
-        # from pypsa-earth-sec
-        # if layer_id == 0:
-        #     geodf_temp["GADM_ID"] = geodf_temp[f"GID_{cur_layer_id}"].apply(
-        #         lambda x: two_2_three_digits_country(x[:2])
-        #     ) + pd.Series(range(1, geodf_temp.shape[0] + 1)).astype(str)
-        # else:
-        #     # create a subindex column that is useful
-        #     # in the GADM processing of sub-national zones
-        #     # Fix issues with missing "." in selected cases
-        #     geodf_temp["GADM_ID"] = geodf_temp[f"GID_{cur_layer_id}"].apply(
-        #         lambda x: x if x[3] == "." else x[:3] + "." + x[3:]
-        #     )
-
         # append geodataframes
         geodf_list.append(geodf_temp)
 
@@ -1693,6 +1680,15 @@ def gadm(
         lambda x: x if x.find(".") == 0 else "." + x
     )
     df_gadm.set_index("GADM_ID", inplace=True)
+    idx_duplicated = df_gadm.index.duplicated(keep=False)
+    if idx_duplicated.any():
+        all_duplicated = idx_duplicated.sum()
+        list_duplicated = df_gadm.index[idx_duplicated].unique()
+        n_duplicated = df_gadm.index.duplicated(keep="first").sum()
+        logger.warning(
+            f"Duplicated GADM_ID found, dissolving {all_duplicated} geometries with the same GADM_ID into {n_duplicated} shapes: {list_duplicated}"
+        )
+        df_gadm = df_gadm.dissolve(by=df_gadm.index)
 
     if simplify_gadm:
         df_gadm["geometry"] = df_gadm["geometry"].map(
@@ -1880,6 +1876,7 @@ def generate_points_every_km(
         geometry="geometry",
         crs=geo_crs,
     )
+    points_gdf.index.name = "points"
 
     return points_gdf
 
@@ -1948,7 +1945,7 @@ def crop_offshore(
         either equal to the full country offshore area (single subregion) or Voronoi-partitioned among multiple subregions.
     """
 
-    from build_bus_regions import custom_voronoi_partition_pts
+    from build_bus_regions import voronoi
 
     # Determine country for each subregion
     subregion_dict = determine_subregion_country(
@@ -1991,12 +1988,7 @@ def crop_offshore(
                     "or set `build_shape_options: simplify_gadm:` as True."
                 )
 
-            voronoi_geoms = custom_voronoi_partition_pts(
-                coords,
-                outline,
-                add_bounds_shape=True,
-                multiplier=5,
-            )
+            voronoi_geoms = voronoi(coords, outline)
 
             points_gdf = points_gdf.copy()
             points_gdf["geometry"] = voronoi_geoms

@@ -453,9 +453,9 @@ databundles:
     - data/gadm/gadm41_TLS/gadm41_TLS.gpkg
     - data/gadm/gadm41_VNM/gadm41_VNM.gpkg
 
-  # resources bundle containing the resources folder for Africa only
+  # resources bundle containing the world resources folder, with testing limited to ASEAN only.
   bundle_natura_tutorial_earth:
-    countries: [Earth]
+    countries: [ASEAN]
     tutorial: true
     category: natura
     destination: "data/natura/"
@@ -480,7 +480,7 @@ databundles:
     - data/hydrobasins/hybas_world.shp
 
   bundle_subregion_ASEAN:
-    countries: ["ASEAN"]
+    countries: [ASEAN]
     category: subregion
     destination: "data"
     urls:
@@ -494,7 +494,7 @@ databundles:
   # cutouts bundle of the cutouts folder for ASEAN countries
   # Size about 7.3 GB (zipped)
   bundle_cutouts_ASEAN:
-    countries: ["ASEAN"]
+    countries: [ASEAN]
     category: cutouts
     destination: "cutouts"
     urls:
@@ -505,7 +505,7 @@ databundles:
 
   # tutorial bundle of the cutouts folder for ASEAN countries
   bundle_cutouts_tutorial_ASEAN:
-    countries: ["ASEAN"]
+    countries: [ASEAN]
     tutorial: true
     category: cutouts
     destination: "cutouts"

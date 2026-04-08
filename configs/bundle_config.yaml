@@ -155,7 +155,7 @@ databundles:
 
   # tutorial bundle for all African countries
   bundle_tutorial_data_common:
-    countries: [Africa]
+    countries: [Africa, ASEAN]
     tutorial: true
     category: common
     destination: "data"
@@ -429,24 +429,29 @@ databundles:
   ### ASEAN Specific Databundles
 
   # data bundle containing the data of the data folder common to all regions of the world
-  bundle_data_tutorial_earth:
-    countries: [Earth]
+  bundle_tutorial_asean:
+    countries: [ASEAN]
     category: data
     tutorial: true
     destination: "data"
     urls:
-      zenodo: https://sandbox.zenodo.org/records/323567/files/bundle_data_earth.zip?download=1
-      gdrive: https://drive.google.com/file/d/1P4uMY464lgcp--8fAEYIJbKeNmHdg1Re/view?usp=drive_link
+      gdrive: https://drive.google.com/file/d/1SgrRE8lGSEiEbg4GjHS_Bexzi36H7-NP/view?usp=sharing
     output:
-    - data/eez/eez_v11.gpkg
     - data/gebco/GEBCO_2025_sub_ice.nc
     - data/copernicus/PROBAV_LC100_global_v3.0.1_2019-nrt_Discrete-Classification-map_EPSG-4326.tif
-    - data/ssp2-2.6/2030/era5_2013/Africa.nc
-    - data/ssp2-2.6/2030/era5_2013/Asia.nc
-    - data/ssp2-2.6/2030/era5_2013/Europe.nc
-    - data/ssp2-2.6/2030/era5_2013/NorthAmerica.nc
-    - data/ssp2-2.6/2030/era5_2013/SouthAmerica.nc
-    - data/ssp2-2.6/2030/era5_2013/Oceania.nc
+    - data/custom_subregion/asean_custom_shapes.geojson
+    - data/custom_subregion/asean_custom_offshore.geojson
+    - data/gadm/gadm41_BRN/gadm41_BRN.gpkg
+    - data/gadm/gadm41_IDN/gadm41_IDN.gpkg
+    - data/gadm/gadm41_KHM/gadm41_KHM.gpkg
+    - data/gadm/gadm41_LAO/gadm41_LAO.gpkg
+    - data/gadm/gadm41_MMR/gadm41_MMR.gpkg
+    - data/gadm/gadm41_MYS/gadm41_MYS.gpkg
+    - data/gadm/gadm41_PHL/gadm41_PHL.gpkg
+    - data/gadm/gadm41_SGP/gadm41_SGP.gpkg
+    - data/gadm/gadm41_THA/gadm41_THA.gpkg
+    - data/gadm/gadm41_TLS/gadm41_TLS.gpkg
+    - data/gadm/gadm41_VNM/gadm41_VNM.gpkg
 
   # resources bundle containing the resources folder for Africa only
   bundle_natura_tutorial_earth:
@@ -479,20 +484,7 @@ databundles:
     category: subregion
     destination: "data"
     urls:
-      gdrive: https://drive.google.com/file/d/17WA9DpeR40eci1BXgwatLsZv6mfcITQb/view?usp=sharing
-    output:
-    - data/custom_subregion/asean_custom_shapes.geojson
-    - data/custom_subregion/asean_custom_offshore.geojson
-    disable_by_opt:
-      build_cutout: [all]
-
-  bundle_subregion_tutorial_ASEAN:
-    countries: ["ASEAN"]
-    tutorial: true
-    category: subregion
-    destination: "data"
-    urls:
-      gdrive: https://drive.google.com/file/d/17WA9DpeR40eci1BXgwatLsZv6mfcITQb/view?usp=sharing
+      gdrive: https://drive.google.com/file/d/1g2Ox_Oc38EtSCYzyM_X7JbRZshSEgQO1/view?usp=sharing
     output:
     - data/custom_subregion/asean_custom_shapes.geojson
     - data/custom_subregion/asean_custom_offshore.geojson

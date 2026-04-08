@@ -12,6 +12,8 @@ This part of documentation collects descriptive release notes to capture the mai
 
 **New Features and Major Changes**
 
+* Revise implementation of myopic optimization [PR #1722](https://github.com/pypsa-meets-earth/pypsa-earth/pull/1722)
+
 * Migrate all cost data processing to ``process_cost_data.py`` [PR #1719](https://github.com/pypsa-meets-earth/pypsa-earth/pull/1719)
 
 * Add the rule `retrieve_cutout` using the same script from `retrieve_databundle_light`. The `bundle_to_download` excludes cutouts while `cutout_to_download` include only cutouts. The retrieved cutouts are then verified to ensure their total bounds match the outputs from `build_shapes`. The config `enable: retrieve_cutout` allows users to switch off this rule after retrieval. [PR #1767](https://github.com/pypsa-meets-earth/pypsa-earth/pull/1767)
@@ -23,6 +25,10 @@ This part of documentation collects descriptive release notes to capture the mai
 * Ensure connectivity of transformers in buses with several transformers [PR #1706](https://github.com/pypsa-meets-earth/pypsa-earth/pull/1706)
 
 **Minor Changes and bug-fixing**
+
+* Add options to use custom shapes for offshore subregions [PR #1769](https://github.com/pypsa-meets-earth/pypsa-earth/pull/1769)
+
+* In `cluster_network`, replace custom voronoi polygon calculation function with Geopandas `gdf.voronoi_polygons` method [PR #1771](https://github.com/pypsa-meets-earth/pypsa-earth/pull/1771)
 
 * Add `auto` as an option in renewable cutout selection, which directs to the cutout defined in `atlite: default`. This is executed using the function `update_cutout_config(config)`. Furthermore, improve `terminate_if_cutout_exist(w)` to be based purely on wildcards of the cutouts name that are to be downloaded. This is applied to both `build_cutout` and `retrieve_cutout`. [PR #1767](https://github.com/pypsa-meets-earth/pypsa-earth/pull/1767)
 
@@ -60,6 +66,7 @@ This part of documentation collects descriptive release notes to capture the mai
 
 * Make checking the need for exclusion rasters more explicit [PR #1755](https://github.com/pypsa-meets-earth/pypsa-earth/pull/1755)
 
+* Dissolve geometries with duplicated GADM IDs, typical of regions with contested regions [PR #1759](https://github.com/pypsa-meets-earth/pypsa-earth/pull/1759)
 
 # PyPSA-Earth 0.8.0
 

@@ -295,6 +295,8 @@ rule build_shapes:
 def retrieve_subregion(script_name):
     """
     Select whether scripts related to subregions should be retrieved.
+
+    Offshore subregion shapes can be generated from subregion shapes, or provided as a separate custom file.
     """
     subregion_config = config.get("subregion", {"apply_on": []})
 
@@ -771,11 +773,13 @@ rule add_electricity:
     params:
         countries=config["countries"],
         output_currency=config["costs"]["output_currency"],
+        fill_values=config["costs"]["fill_values"],
         conventional=config.get("conventional", {}),
         electricity=config["electricity"],
         alternative_clustering=config["cluster_options"]["alternative_clustering"],
         renewable=config["renewable"],
         length_factor=config["lines"]["length_factor"],
+        existing_capacities=config["existing_capacities"],
     input:
         **{
             f"profile_{tech}": "resources/"

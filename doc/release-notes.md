@@ -24,7 +24,17 @@ This part of documentation collects descriptive release notes to capture the mai
 
 * Ensure connectivity of transformers in buses with several transformers [PR #1706](https://github.com/pypsa-meets-earth/pypsa-earth/pull/1706)
 
+* Enable green-field capacity expansion of custom lines under construction [PR #1778](https://github.com/pypsa-meets-earth/pypsa-earth/pull/1778)
+
 **Minor Changes and bug-fixing**
+
+* Included critical step in the documentation to confirm Terms and Conditions on Copernicus portal to allow for unrestricted use of API. [PR #1785](https://github.com/pypsa-meets-earth/pypsa-earth/pull/1785)
+
+* Update biomass transport cost for Australia [PR #1784](https://github.com/pypsa-meets-earth/pypsa-earth/pull/1784)
+
+* Convert dangling `custom_data.rst` to MkDocs Markdown and add Custom Data Integration page to the User Guide [PR #1767](https://github.com/pypsa-meets-earth/pypsa-earth/pull/1767)
+
+* Enhance CI test for myopic optimization (`test/config.myopic.yaml`) by including additional horizon [PR #1776](https://github.com/pypsa-meets-earth/pypsa-earth/pull/1776)
 
 * Add options to use custom shapes for offshore subregions [PR #1769](https://github.com/pypsa-meets-earth/pypsa-earth/pull/1769)
 

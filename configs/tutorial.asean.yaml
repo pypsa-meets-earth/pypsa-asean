@@ -19,6 +19,8 @@ snapshots:
   start: "2013-03-01"
   end: "2013-03-07"
 
+countries: [BN, KH, ID, LA, MM, MY, PH, SG, TH, TL, VN]
+
 atlite:
   default: asean-2013-era5-tutorial
 

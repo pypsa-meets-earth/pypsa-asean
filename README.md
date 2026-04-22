@@ -191,10 +191,10 @@ After checking out the tag, the model can be run as usual. Please make sure to u
 
 ## Documentation
 
-The documentation is available here: 
+The documentation is available here:
 
-[pypsa-asean](https://pypsa-meets-earth.github.io/pypsa-asean/).
-[pypsa-earth](https://pypsa-earth.readthedocs.io/en/latest/index.html).
+- [**PyPSA-ASEAN**](https://pypsa-meets-earth.github.io/pypsa-asean/).
+- [**PyPSA-Earth**](https://pypsa-earth.readthedocs.io/en/latest/index.html).
 
 ## Collaborators
 

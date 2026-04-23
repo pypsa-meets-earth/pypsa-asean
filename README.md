@@ -99,29 +99,29 @@ There are multiple ways to get involved and learn more about our work:
 5. Join us and **propose your stream**.
 6. Participate in mapping power grids on [**OpenStreetMap project**](https://osm.org) through the [**MapYourGrid initiative**](https://mapyourgrid.org). Many resources as [video tutorials](https://www.youtube.com/channel/UC52jOcw_6_7iTMW-lXwLrQQ) or [starter-kit](https://mapyourgrid.org/starter-kit/) help to improve open data that is used by PyPSA-Earth to build the grid topology.
 
-## Installation
+## Installation (PyPSA-ASEAN)
 
-1. Open your terminal at a location where you want to install pypsa-earth. Type the following in your terminal to download the package from GitHub:
+1. Open your terminal at a location where you want to install pypsa-asean. Type the following in your terminal to download the package from GitHub:
 
    ```bash
-   .../some/path/without/spaces % git clone https://github.com/pypsa-meets-earth/pypsa-earth.git
+   .../some/path/without/spaces % git clone https://github.com/pypsa-meets-earth/pypsa-asean.git
    ```
 2. The python package requirements are curated in the `envs/{your operating system}64.lock.yaml` file.
    - On linux, the environment can be installed using:
      ```bash
-     .../pypsa-earth % conda env create -f envs/linux-64.lock.yaml
+     .../pypsa-asean % conda env create -f envs/linux-64.lock.yaml
      ```
    - On newest macOS (arm-based), the environment can be installed using:
      ```bash
-     .../pypsa-earth % conda env create -f envs/osx-arm64.lock.yaml
+     .../pypsa-asean % conda env create -f envs/osx-arm64.lock.yaml
      ```
      On non-arm macOS, the environment can be installed using:
      ```bash
-     .../pypsa-earth % conda env create -f envs/osx-64.lock.yaml
+     .../pypsa-asean % conda env create -f envs/osx-64.lock.yaml
      ```
     - On Windows, the environment can be installed using:
       ```bash
-      .../pypsa-earth % conda env create -f envs/win-64.lock.yaml
+      .../pypsa-asean % conda env create -f envs/win-64.lock.yaml
      ```
 
    If the above takes longer than 30 min, you might want to try mamba for faster installation:
@@ -129,21 +129,21 @@ There are multiple ways to get involved and learn more about our work:
    ```bash
    (base) conda install -c conda-forge mamba
 
-   .../pypsa-earth % mamba env create -f envs/{{your operating system}}64.lock.yaml
+   .../pypsa-asean % mamba env create -f envs/{{your operating system}}64.lock.yaml
    ```
 3. (optional) In step 2, three solvers are installed: HiGHs, glpk and gurobi. HiGHs is the recommended open-source solver. Gurobi is generally faster, but requires a license for full functionality, which is [freely available to academics](https://www.gurobi.com/features/academic-named-user-license/) (see instructions website).
 
 4. To use jupyter lab (new jupyter notebooks) **continue** with the [ipython kernel installation](http://echrislynch.com/2019/02/01/adding-an-environment-to-jupyter-notebooks/) and test if your jupyter lab works:
 
    ```bash
-   .../pypsa-earth % ipython kernel install --user --name=pypsa-earth
-   .../pypsa-earth % jupyter lab
+   .../pypsa-asean % ipython kernel install --user --name=pypsa-earth
+   .../pypsa-asean % jupyter lab
    ```
 5. Verify or install a java redistribution from the [official website](https://www.oracle.com/java/technologies/downloads/) or equivalent.
    To verify the successful installation the following code can be tested from bash:
 
    ```bash
-   .../pypsa-earth % java -version
+   .../pypsa-asean % java -version
    ```
 
    The expected output should resemble the following:
@@ -167,15 +167,11 @@ After checking out the tag, the model can be run as usual. Please make sure to u
 
 ## Test run on tutorial
 
-- In the folder open a terminal/command window to be located at this path `~/pypsa-earth/`
+- In the folder open a terminal/command window to be located at this path `~/pypsa-asean/`
 - Activate the environment `conda activate pypsa-earth`
-- Rename config.tutorial.yaml to config.yaml. For instance in Linux:
-  ```bash
-  mv config.tutorial.yaml config.yaml
-  ```
 - Run a dryrun of the Snakemake workflow by typing simply in the terminal:
   ```bash
-  snakemake -j 1 solve_all_networks -n
+  snakemake -call solve_sector_networks --configfile configs/config.asean.yaml configs/tutorial.asean.yaml -n
   ```
 
   Remove the -n to do a real run. Follow the tutorial of PyPSA-Eur 1 and 2 on [YouTube](https://www.youtube.com/watch?v=ty47YU1_eeQ) to continue with an analysis.
@@ -195,7 +191,10 @@ After checking out the tag, the model can be run as usual. Please make sure to u
 
 ## Documentation
 
-The documentation is available here: [documentation](https://pypsa-earth.readthedocs.io/en/latest/index.html).
+The documentation is available here:
+
+- [**PyPSA-ASEAN**](https://pypsa-meets-earth.github.io/pypsa-asean/).
+- [**PyPSA-Earth**](https://pypsa-earth.readthedocs.io/en/latest/index.html).
 
 ## Collaborators
 

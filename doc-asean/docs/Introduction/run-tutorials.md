@@ -80,7 +80,7 @@ These are extra flags that can help with debugging:
 Once you have successfully run a tutorial scenario, you can expand the model by taking the following steps:
 
 - Configure the model to include the regions you want to analyze.
-- Set `tutorial: false` to download the full data bundle.
+- Set `tutorial: false` to download the full databundle.
 - Increase the spatial and temporal resolution. To extend the temporal resolution, update the configuration as follows:
 
 ```yaml

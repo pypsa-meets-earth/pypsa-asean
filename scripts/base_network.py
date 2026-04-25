@@ -538,7 +538,7 @@ def base_network(
     n = pypsa.Network()
     n.name = "PyPSA-ASEAN"
 
-    # PyPSA-ASEAN: Only includes modeled countries if network is pre-built
+    # PyPSA-ASEAN: Filtered pre-built networks to include only selected countries.
     if not buses.country.isin(countries_config).all():
         buses, lines_ac, lines_dc, transformers, converters = filter_countries(
             buses, countries_config, lines_ac, lines_dc, transformers, converters

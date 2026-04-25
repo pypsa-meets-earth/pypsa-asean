@@ -3,13 +3,13 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 # To run:
-# snakemake solve_sector_networks --configfile configs/config.asean.yaml configs/tutorial.asean.yaml -call
+# snakemake solve_sector_networks --configfile configs/config.asean.yaml configs/tutorials/config.java-bali.yaml -call
 
 tutorial: true
 
 run:
-  name: baseline-aims-3H-tutorial # use this to keep track of runs with different settings
-  sector_name: baseline-aims-3H-tutorial
+  name: baseline-java-bali-3H-tutorial # use this to keep track of runs with different settings
+  sector_name: baseline-java-bali-3H-tutorial
 
 scenario:
   clusters: [50]
@@ -22,7 +22,16 @@ snapshots:
   start: "2013-03-01"
   end: "2013-03-07"
 
-countries: [BN, KH, ID, LA, MM, MY, PH, SG, TH, TL, VN]
+countries: [ID]
+
+focus_weights:
+  ID_Java-Bali: 0.7 # Focus resolution on Java-Bali
+  ID_Kalimantan: 0.1
+  ID_Maluku: 0.0
+  ID_Nusa-Tenggara: 0.05
+  ID_Papua: 0.0
+  ID_Sulawesi: 0.0
+  ID_Sumatra: 0.15
 
 atlite:
   default: asean-2013-era5-tutorial
@@ -33,6 +42,9 @@ sector:
 
   solar_rooftop:
     use_building_size: false
+
+final_adjustment:
+  drop_country: [ID_Maluku, ID_Papua, ID_Sulawesi]
 
 solving:
   solver:

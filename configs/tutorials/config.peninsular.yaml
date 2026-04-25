@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 # To run:
-# snakemake solve_sector_networks --configfile configs/config.asean.yaml configs/tutorial.peninsular.yaml -call
+# snakemake solve_sector_networks --configfile configs/config.asean.yaml configs/tutorials/config.peninsular.yaml -call
 
 tutorial: true
 

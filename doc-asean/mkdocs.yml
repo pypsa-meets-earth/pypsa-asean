@@ -45,6 +45,7 @@ nav:
 - Introduction:
   - Introduction/index.md
   - Installation: Introduction/installation.md
+  - Run Tutorials: Introduction/run-tutorials.md
   - Run Scenarios: Introduction/run-scenarios.md
   - Contributors: Introduction/contributors.md
 - Configuration:

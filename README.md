@@ -171,7 +171,7 @@ After checking out the tag, the model can be run as usual. Please make sure to u
 - Activate the environment `conda activate pypsa-earth`
 - Run a dryrun of the Snakemake workflow by typing simply in the terminal:
   ```bash
-  snakemake -call solve_sector_networks --configfile configs/config.asean.yaml configs/tutorial.asean.yaml -n
+  snakemake -call solve_sector_networks --configfile configs/config.asean.yaml configs/tutorials/config.asean.yaml -n
   ```
 
   Remove the -n to do a real run. Follow the tutorial of PyPSA-Eur 1 and 2 on [YouTube](https://www.youtube.com/watch?v=ty47YU1_eeQ) to continue with an analysis.

@@ -1463,8 +1463,10 @@ rule add_export:
 rule final_asean_adjustment:
     params:
         electricity=config["electricity"],
+        crs=config["crs"],
         final_adjustment=config.get("final_adjustment"),
     input:
+        **retrieve_subregion("final_adjustment"),
         network=RESDIR
         + "prenetworks/elec_s{simpl}_{clusters}_ec_l{ll}_{opts}_{sopts}_{planning_horizons}_{discountrate}_{demand}_{h2export}.nc",
     output:

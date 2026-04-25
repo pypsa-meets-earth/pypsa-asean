@@ -2,38 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ==== Tutorial Scenarios ====
-# ============================
-
-baseline-aims-3H-tutorial:
-  tutorial: true
-
-  scenario:
-    clusters: [50]
-    planning_horizons:
-    - 2030
-    - 2040
-    - 2050
-
-  snapshots:
-    start: "2013-03-01"
-    end: "2013-03-07"
-
-  atlite:
-    default: asean-2013-era5-tutorial
-
-  sector:
-    enable:
-      land_transport: false # Ongoing issues for models with short timeframes
-
-    solar_rooftop:
-      use_building_size: false
-
-  solving:
-    solver:
-      name: glpk
-      options: glpk-default
-
 # ==== Baseline Scenarios ====
 # ============================
 
@@ -164,3 +132,130 @@ sensitivity-roof200-3H:
         200: 0.41
         450: 0.49
         2300: 0.66
+
+# ==== Tutorial Scenarios ====
+# ============================
+
+baseline-aims-3H-tutorial:
+  tutorial: true
+
+  scenario:
+    clusters: [50]
+    planning_horizons:
+    - 2030
+    - 2040
+    - 2050
+
+  snapshots:
+    start: "2013-03-01"
+    end: "2013-03-07"
+
+  atlite:
+    default: asean-2013-era5-tutorial
+
+  sector:
+    enable:
+      land_transport: false # Ongoing issues for models with short timeframes
+
+    solar_rooftop:
+      use_building_size: false
+
+  solving:
+    solver:
+      name: highs
+      options: highs-default
+
+baseline-java-bali-3H-tutorial:
+  tutorial: true
+
+  scenario:
+    clusters: [50]
+    planning_horizons:
+    - 2030
+    - 2040
+    - 2050
+
+  snapshots:
+    start: "2013-03-01"
+    end: "2013-03-07"
+
+  countries: [ID]
+
+  focus_weights:
+    ID_Java-Bali: 0.7 # Focus resolution on Java-Bali
+    ID_Kalimantan: 0.1
+    ID_Maluku: 0.0
+    ID_Nusa-Tenggara: 0.05
+    ID_Papua: 0.0
+    ID_Sulawesi: 0.0
+    ID_Sumatra: 0.15
+
+  atlite:
+    default: asean-2013-era5-tutorial
+
+  sector:
+    enable:
+      land_transport: false # Ongoing issues for models with short timeframes
+
+    solar_rooftop:
+      use_building_size: false
+
+  final_adjustment:
+    drop_country: [ID_Maluku, ID_Papua, ID_Sulawesi]
+
+  solving:
+    solver:
+      name: highs
+      options: highs-default
+
+baseline-peninsular-3H-tutorial:
+  tutorial: true
+
+  scenario:
+    clusters: [50]
+    planning_horizons:
+    - 2030
+    - 2040
+    - 2050
+
+  snapshots:
+    start: "2013-03-01"
+    end: "2013-03-07"
+
+  countries: [ID, MY, SG, TH]
+
+  focus_weights:
+    ID: 0.0
+    MY: 0.0
+    TH: 0.15
+    SG: 0.0
+    ID_Sumatra: 0.15
+    MY_Peninsular: 0.7
+
+  subregion:
+    method: gadm
+    apply_on: ["simplify_network", "cluster_network", "final_adjustment"]
+    define_by_gadm:
+      ID_Java-Bali: []
+      ID_Kalimantan: []
+      ID_Maluku: []
+      ID_Nusa-Tenggara: []
+      ID_Papua: []
+      ID_Sulawesi: []
+      ID_Sumatra: [ID.1_1, ID.3_1, ID.5_1, ID.8_1, ID.16_1, ID.17_1, ID.24_1, ID.30_1, ID.31_1, ID.32_1]
+      MY_Peninsular: [MY.1_1, MY.2_1, MY.3_1, MY.4_1, MY.6_1, MY.7_1, MY.8_1, MY.9_1, MY.10_1, MY.11_1, MY.12_1, MY.15_1, MY.16_1]
+      MY_Sabah: []
+      MY_Sarawak: []
+
+  atlite:
+    default: asean-2013-era5-tutorial
+
+  sector:
+    enable:
+      land_transport: false # Ongoing issues for models with short timeframes
+
+    solar_rooftop:
+      use_building_size: false
+
+  final_adjustment:
+    drop_country: [MY, ID]

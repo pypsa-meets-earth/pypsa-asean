@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+# To run:
+# snakemake solve_sector_networks --configfile configs/config.asean.yaml configs/tutorials/config.asean.yaml -call
+
 tutorial: true
 
 run:
@@ -33,5 +36,5 @@ sector:
 
 solving:
   solver:
-    name: glpk
-    options: glpk-default
+    name: highs
+    options: highs-default

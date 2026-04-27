@@ -11,7 +11,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import pypsa
-from _helpers import configure_logging, create_logger
+from _helpers import configure_logging, create_logger, nearest_shape
 
 logger = create_logger(__name__)
 
@@ -349,6 +349,50 @@ def readjust_existing_interconnections(n):
     logger.info("Activate: Readjust existing interconnections")
 
 
+def drop_country(
+    n: pypsa.Network,
+    drop_subregions: list[str],
+) -> pypsa.Network:
+    """
+    Remove buses and all connections related to that bus.
+
+    Parameters
+    ----------
+    n : pypsa.Network
+        The PyPSA network with buses and networks to remove.
+    drop_subregions : list[str]
+        List of country or subregions to drop.
+
+    Returns
+    -------
+    list[pd.DataFrame]
+        The DataFrame with the the countries filtered
+
+    """
+    subregion_shapes = snakemake.input.get("subregion_shapes")
+    if subregion_shapes:
+        crs = snakemake.params.crs
+        tolerance = snakemake.config.get("subregion", {}).get("tolerance", 100)
+        ns = nearest_shape(n, subregion_shapes, crs, tolerance=tolerance)
+    else:
+        ns = n
+
+    drop_buses = ns.buses[ns.buses.country.isin(drop_subregions)].index
+
+    # Remove all components connected to those buses
+    for c in n.iterate_components():
+        bus_cols = c.df.columns[c.df.columns.str.startswith("bus")]
+        if len(bus_cols) == 0:
+            continue
+
+        mask = c.df[bus_cols].isin(drop_buses).any(axis=1)
+        if mask.any():
+            n.mremove(c.name, c.df.index[mask])
+
+    # Finally remove the buses themselves
+    n.mremove("Bus", drop_buses)
+
+
 if __name__ == "__main__":
     if "snakemake" not in globals():
         from _helpers import mock_snakemake
@@ -385,5 +429,8 @@ if __name__ == "__main__":
 
     if options["readjust_existing_interconnections"]:
         readjust_existing_interconnections(n)
+
+    if options["drop_country"]:
+        drop_country(n, options["drop_country"])
 
     n.export_to_netcdf(snakemake.output[0])

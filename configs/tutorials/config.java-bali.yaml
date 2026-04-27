@@ -1,0 +1,52 @@
+# SPDX-FileCopyrightText:  PyPSA-ASEAN, PyPSA-Earth and PyPSA-Eur Authors
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# To run:
+# snakemake solve_sector_networks --configfile configs/config.asean.yaml configs/tutorials/config.java-bali.yaml -call
+
+tutorial: true
+
+run:
+  name: baseline-java-bali-3H-tutorial # use this to keep track of runs with different settings
+  sector_name: baseline-java-bali-3H-tutorial
+
+scenario:
+  clusters: [50]
+  planning_horizons:
+  - 2030
+  - 2040
+  - 2050
+
+snapshots:
+  start: "2013-03-01"
+  end: "2013-03-07"
+
+countries: [ID]
+
+focus_weights:
+  ID_Java-Bali: 0.7 # Focus resolution on Java-Bali
+  ID_Kalimantan: 0.1
+  ID_Maluku: 0.0
+  ID_Nusa-Tenggara: 0.05
+  ID_Papua: 0.0
+  ID_Sulawesi: 0.0
+  ID_Sumatra: 0.15
+
+atlite:
+  default: asean-2013-era5-tutorial
+
+sector:
+  enable:
+    land_transport: false # Ongoing issues for models with short timeframes
+
+  solar_rooftop:
+    use_building_size: false
+
+final_adjustment:
+  drop_country: [ID_Maluku, ID_Papua, ID_Sulawesi]
+
+solving:
+  solver:
+    name: highs
+    options: highs-default

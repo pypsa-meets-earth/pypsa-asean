@@ -68,6 +68,7 @@ build_shape_options:
 
 subregion:
   method: custom
+  apply_on: ["simplify_network", "cluster_network", "final_adjustment"]
   define_by_gadm:
     ID_Java-Bali: [ID.2_1, ID.4_1, ID.7_1, ID.9_1, ID.10_1, ID.11_1, ID.33_1]
     ID_Kalimantan: [ID.12_1, ID.13_1, ID.14_1, ID.34_1, ID.35_1]
@@ -288,6 +289,8 @@ final_adjustment:
     TH: 0.42
     TL: 0.01  # Data not available
     VN: 0.51
+
+  drop_country: false
 
 solving:
   options:

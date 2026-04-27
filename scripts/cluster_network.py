@@ -320,6 +320,12 @@ def distribute_clusters(
     ), f"Number of clusters must be {len(N)} <= n_clusters <= {N.sum()} for this selection of countries."
 
     if focus_weights:
+        # PyPSA-ASEAN: Filtered out unused focus_weights in configs/config.asean.yaml
+        focus_weights = {
+            country: weight
+            for country, weight in focus_weights.items()
+            if country in set(n.buses["country"].unique())
+        }
         total_focus = sum(list(focus_weights.values()))
 
         assert (

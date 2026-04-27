@@ -8,7 +8,8 @@ SPDX-License-Identifier: CC-BY-4.0
 This chapter introduces PyPSA-ASEAN and explains how to create PyPSA models in the ASEAN region.
 
 - [Installation](installation.md)
-- [Run scenarios](run-scenarios.md)
+- [Run Tutorials](run-tutorials.md)
+- [Run Scenarios](run-scenarios.md)
 - [Contributors](contributors.md)
 
 ##  Introduction

@@ -473,6 +473,39 @@ def _set_countries_and_substations(inputs, base_network_config, countries_config
     return buses
 
 
+def filter_countries(
+    buses: pd.DataFrame,
+    countries: list[str] | None = None,
+    *dfs: pd.DataFrame,
+) -> list[pd.DataFrame]:
+    """
+    Filter buses and related DataFrames by country.
+
+    Parameters
+    ----------
+    buses : pd.DataFrame
+        DataFrame containing at least a ``country`` column. Its index is assumed
+        to represent bus identifiers.
+    countries : list[str]
+        List of country codes or names to keep.
+    *dfs : pd.DataFrame
+        Additional DataFrames to filter. Each is expected to contain ``bus0`` and
+        ``bus1`` columns referencing the bus index.
+
+    Returns
+    -------
+    list[pd.DataFrame]
+        The DataFrame with the the countries filtered
+
+    """
+
+    keep_buses = buses[buses.country.isin(countries)].index
+
+    return [buses.loc[keep_buses]] + [
+        df[df.bus0.isin(keep_buses) & df.bus1.isin(keep_buses)] for df in dfs
+    ]
+
+
 def base_network(
     inputs,
     base_network_config,
@@ -505,6 +538,12 @@ def base_network(
     n = pypsa.Network()
     n.name = "PyPSA-ASEAN"
 
+    # PyPSA-ASEAN: Filtered pre-built networks to include only selected countries.
+    if not buses.country.isin(countries_config).all():
+        buses, lines_ac, lines_dc, transformers, converters = filter_countries(
+            buses, countries_config, lines_ac, lines_dc, transformers, converters
+        )
+
     n.set_snapshots(pd.date_range(freq="h", **snapshots_config))
     n.snapshot_weightings[:] *= 8760.0 / n.snapshot_weightings.sum()
 
@@ -528,9 +567,8 @@ def base_network(
     n.import_components_from_dataframe(converters, "Link")
 
     # greenfield capacity expansion is represented with null capacity using num_parallel==0
-    n.lines["num_parallel"] = n.lines["num_parallel"].where(
-        ~n.lines["under_construction"], 0.0
-    )
+    mask = n.lines.get("under_construction", pd.Series(False, index=n.lines.index))
+    n.lines["num_parallel"] = n.lines["num_parallel"].where(~mask, 0.0)
     n.lines.drop(columns="under_construction", inplace=True, errors="ignore")
 
     _set_lines_s_nom_from_linetypes(n)

@@ -24,14 +24,15 @@ snapshots:
 
 countries: [ID]
 
-focus_weights:
-  ID_Java-Bali: 0.7 # Focus resolution on Java-Bali
-  ID_Kalimantan: 0.1
-  ID_Maluku: 0.0
-  ID_Nusa-Tenggara: 0.05
-  ID_Papua: 0.0
-  ID_Sulawesi: 0.0
-  ID_Sumatra: 0.15
+clustering:
+  focus_weights:
+    ID_Java-Bali: 0.7 # Focus resolution on Java-Bali
+    ID_Kalimantan: 0.1
+    ID_Maluku: 0.0
+    ID_Nusa-Tenggara: 0.05
+    ID_Papua: 0.0
+    ID_Sulawesi: 0.0
+    ID_Sumatra: 0.15
 
 atlite:
   default: asean-2013-era5-tutorial
@@ -48,5 +49,5 @@ final_adjustment:
 
 solving:
   solver:
-    name: highs
-    options: highs-default
+    name: gurobi
+    options: gurobi-default

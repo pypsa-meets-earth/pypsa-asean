@@ -22,20 +22,23 @@ baseline-existing-3H:
 # ===================================
 
 decarbonize-aims-3H:
-  co2_budget:
-    enable: true
+  co2:
+    budget:
+      enable: true
 
 decarbonize-asean-3H:
-  co2_budget:
-    enable: true
+  co2:
+    budget:
+      enable: true
 
   transmission_projects:
     include:
       AIMS: false
 
 decarbonize-existing-3H:
-  co2_budget:
-    enable: true
+  co2:
+    budget:
+      enable: true
 
   transmission_projects:
     include:
@@ -50,8 +53,9 @@ sensitivity-overnight-3H:
     planning_horizons:
     - 2050
 
-  co2_budget:
-    enable: true
+  co2:
+    budget:
+      enable: true
 
 # ====== Clustering ======
 
@@ -61,8 +65,9 @@ sensitivity-50n-3H:
     planning_horizons:
     - 2050
 
-  co2_budget:
-    enable: true
+  co2:
+    budget:
+      enable: true
 
 sensitivity-200n-3H:
   scenario:
@@ -70,8 +75,9 @@ sensitivity-200n-3H:
     planning_horizons:
     - 2050
 
-  co2_budget:
-    enable: true
+  co2:
+    budget:
+      enable: true
 
 # ====== Timesteps ======
 
@@ -82,8 +88,9 @@ sensitivity-1H:
     planning_horizons:
     - 2050
 
-  co2_budget:
-    enable: true
+  co2:
+    budget:
+      enable: true
 
 sensitivity-6H:
   scenario:
@@ -92,8 +99,9 @@ sensitivity-6H:
     planning_horizons:
     - 2050
 
-  co2_budget:
-    enable: true
+  co2:
+    budget:
+      enable: true
 
 # ====== Limit Rooftops ======
 
@@ -102,8 +110,9 @@ sensitivity-roof100-3H:
     planning_horizons:
     - 2050
 
-  co2_budget:
-    enable: true
+  co2:
+    budget:
+      enable: true
 
   sector:
     solar_rooftop:
@@ -120,8 +129,9 @@ sensitivity-roof200-3H:
     planning_horizons:
     - 2050
 
-  co2_budget:
-    enable: true
+  co2:
+    budget:
+      enable: true
 
   sector:
     solar_rooftop:
@@ -181,14 +191,15 @@ baseline-java-bali-3H-tutorial:
 
   countries: [ID]
 
-  focus_weights:
-    ID_Java-Bali: 0.7 # Focus resolution on Java-Bali
-    ID_Kalimantan: 0.1
-    ID_Maluku: 0.0
-    ID_Nusa-Tenggara: 0.05
-    ID_Papua: 0.0
-    ID_Sulawesi: 0.0
-    ID_Sumatra: 0.15
+  clustering:
+    focus_weights:
+      ID_Java-Bali: 0.7 # Focus resolution on Java-Bali
+      ID_Kalimantan: 0.1
+      ID_Maluku: 0.0
+      ID_Nusa-Tenggara: 0.05
+      ID_Papua: 0.0
+      ID_Sulawesi: 0.0
+      ID_Sumatra: 0.15
 
   atlite:
     default: asean-2013-era5-tutorial
@@ -202,11 +213,6 @@ baseline-java-bali-3H-tutorial:
 
   final_adjustment:
     drop_country: [ID_Maluku, ID_Papua, ID_Sulawesi]
-
-  solving:
-    solver:
-      name: highs
-      options: highs-default
 
 baseline-peninsular-3H-tutorial:
   tutorial: true
@@ -224,13 +230,14 @@ baseline-peninsular-3H-tutorial:
 
   countries: [ID, MY, SG, TH]
 
-  focus_weights:
-    ID: 0.0
-    MY: 0.0
-    TH: 0.15
-    SG: 0.0
-    ID_Sumatra: 0.15
-    MY_Peninsular: 0.7
+  clustering:
+    focus_weights:
+      ID: 0.0
+      MY: 0.0
+      TH: 0.15
+      SG: 0.0
+      ID_Sumatra: 0.15
+      MY_Peninsular: 0.7
 
   subregion:
     method: gadm

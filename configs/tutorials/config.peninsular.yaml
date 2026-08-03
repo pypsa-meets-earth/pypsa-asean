@@ -24,13 +24,14 @@ snapshots:
 
 countries: [ID, MY, SG, TH]
 
-focus_weights:
-  ID: 0.0
-  MY: 0.0
-  TH: 0.15
-  SG: 0.0
-  ID_Sumatra: 0.15
-  MY_Peninsular: 0.7
+clustering:
+  focus_weights:
+    ID: 0.0
+    MY: 0.0
+    TH: 0.15
+    SG: 0.0
+    ID_Sumatra: 0.15
+    MY_Peninsular: 0.7
 
 subregion:
   method: gadm

@@ -57,7 +57,8 @@ policy_config:
     temporal_matching: "hour"
 
 sector:
-  solid_biomass_potential: 10 # TWh/a, Potential of whole modelled area
+  solid_biomass_potential: .inf # 10 TWh/a, Potential of whole modelled area
+  # TODO: The real biomass demand in the model is 65 TWh/a and are distributed by population
   solar_rooftop:
     use_building_size: true
   hydrogen:

@@ -71,7 +71,8 @@ existing_capacities:
   - uranium
 
 sector:
-  solid_biomass_potential: 10 # TWh/a, Potential of whole modelled area
+  solid_biomass_potential: .inf # 10 TWh/a, Potential of whole modelled area
+  # TODO: The real biomass demand in the model is 65 TWh/a and are distributed by population
 # snapshots are originally set in PyPSA-Earth/config.yaml but used again by PyPSA-Earth-Sec
 snapshots:
   # arguments to pd.date_range

@@ -396,17 +396,17 @@ The documentation is available here:
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/drifter089">
-                    <img src="https://avatars.githubusercontent.com/u/93286254?v=4" width="100;" alt="drifter089"/>
-                    <br />
-                    <sub><b>drifter089</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/GridGrapher">
                     <img src="https://avatars.githubusercontent.com/u/127969728?v=4" width="100;" alt="GridGrapher"/>
                     <br />
                     <sub><b>GridGrapher</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/drifter089">
+                    <img src="https://avatars.githubusercontent.com/u/93286254?v=4" width="100;" alt="drifter089"/>
+                    <br />
+                    <sub><b>drifter089</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -484,20 +484,6 @@ The documentation is available here:
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/arizeosalac">
-                    <img src="https://avatars.githubusercontent.com/u/177637669?v=4" width="100;" alt="arizeosalac"/>
-                    <br />
-                    <sub><b>arizeosalac</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/willu47">
-                    <img src="https://avatars.githubusercontent.com/u/3727919?v=4" width="100;" alt="willu47"/>
-                    <br />
-                    <sub><b>willu47</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/wingerter">
                     <img src="https://avatars.githubusercontent.com/u/6619839?v=4" width="100;" alt="wingerter"/>
                     <br />
@@ -516,6 +502,20 @@ The documentation is available here:
                     <img src="https://avatars.githubusercontent.com/u/124347782?v=4" width="100;" alt="cpschau"/>
                     <br />
                     <sub><b>cpschau</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/arizeosalac">
+                    <img src="https://avatars.githubusercontent.com/u/177637669?v=4" width="100;" alt="arizeosalac"/>
+                    <br />
+                    <sub><b>arizeosalac</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/willu47">
+                    <img src="https://avatars.githubusercontent.com/u/3727919?v=4" width="100;" alt="willu47"/>
+                    <br />
+                    <sub><b>willu47</b></sub>
                 </a>
             </td>
 		</tr>
@@ -572,10 +572,17 @@ The documentation is available here:
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/darmis007">
-                    <img src="https://avatars.githubusercontent.com/u/51883443?v=4" width="100;" alt="darmis007"/>
+                <a href="https://github.com/darsh-mishr">
+                    <img src="https://avatars.githubusercontent.com/u/51883443?v=4" width="100;" alt="darsh-mishr"/>
                     <br />
-                    <sub><b>darmis007</b></sub>
+                    <sub><b>darsh-mishr</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/kma33">
+                    <img src="https://avatars.githubusercontent.com/u/25573938?v=4" width="100;" alt="kma33"/>
+                    <br />
+                    <sub><b>kma33</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -599,6 +606,8 @@ The documentation is available here:
                     <sub><b>Netotse</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/PierreKara1">
                     <img src="https://avatars.githubusercontent.com/u/160237120?v=4" width="100;" alt="PierreKara1"/>
@@ -606,8 +615,6 @@ The documentation is available here:
                     <sub><b>PierreKara1</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/pitmonticone">
                     <img src="https://avatars.githubusercontent.com/u/38562595?v=4" width="100;" alt="pitmonticone"/>
@@ -643,6 +650,8 @@ The documentation is available here:
                     <sub><b>ollie-bell</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/rsparks3">
                     <img src="https://avatars.githubusercontent.com/u/30065966?v=4" width="100;" alt="rsparks3"/>
@@ -650,8 +659,6 @@ The documentation is available here:
                     <sub><b>rsparks3</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/saikumarvasa100-hash">
                     <img src="https://avatars.githubusercontent.com/u/228767710?v=4" width="100;" alt="saikumarvasa100-hash"/>
@@ -667,10 +674,10 @@ The documentation is available here:
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/kma33">
-                    <img src="https://avatars.githubusercontent.com/u/25573938?v=4" width="100;" alt="kma33"/>
+                <a href="https://github.com/juliusmeier">
+                    <img src="https://avatars.githubusercontent.com/u/66074166?v=4" width="100;" alt="juliusmeier"/>
                     <br />
-                    <sub><b>kma33</b></sub>
+                    <sub><b>juliusmeier</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -687,6 +694,8 @@ The documentation is available here:
                     <sub><b>jessLryan</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/jarry7">
                     <img src="https://avatars.githubusercontent.com/u/27745389?v=4" width="100;" alt="jarry7"/>
@@ -694,8 +703,6 @@ The documentation is available here:
                     <sub><b>jarry7</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/JanTautorus">
                     <img src="https://avatars.githubusercontent.com/u/157734880?v=4" width="100;" alt="JanTautorus"/>
@@ -731,6 +738,8 @@ The documentation is available here:
                     <sub><b>flacombe</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/EmreYorat">
                     <img src="https://avatars.githubusercontent.com/u/93644024?v=4" width="100;" alt="EmreYorat"/>
@@ -738,8 +747,6 @@ The documentation is available here:
                     <sub><b>EmreYorat</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/AndreCNF">
                     <img src="https://avatars.githubusercontent.com/u/19359510?v=4" width="100;" alt="AndreCNF"/>

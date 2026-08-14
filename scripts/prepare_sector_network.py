@@ -1168,7 +1168,18 @@ def add_biomass(
     logger_biogas = "Adding global biogas "
 
     biomass_pot = options["solid_biomass_potential"]
-    if biomass_pot:
+    if math.isinf(biomass_pot):
+        # No limits to solid biomass
+        n.madd(
+            "Generator",
+            spatial.biomass.nodes,
+            bus=spatial.biomass.nodes,
+            p_nom_extendable=True,
+            carrier="solid biomass",
+            marginal_cost=costs.at["solid biomass", "fuel"],
+        )
+        logger_biomass += "sources"
+    elif biomass_pot:
         # Set limits to the use of solid biomass
         logger_biomass += f"potential of {biomass_pot} TWh/a"
 
@@ -1181,7 +1192,7 @@ def add_biomass(
         else:
             pop_spatial = 1
 
-        biomass_pot_spatial = biomass_pot * 1e6 / pop_spatial  # MWh
+        biomass_pot_spatial = biomass_pot * 1e6 * pop_spatial  # MWh
 
         n.madd(
             "Store",
@@ -1192,22 +1203,22 @@ def add_biomass(
             marginal_cost=costs.at["solid biomass", "fuel"],
             e_initial=biomass_pot_spatial,
         )
-    elif math.isinf(biomass_pot):
-        # No limits to solid biomass
-        n.madd(
-            "Generator",
-            spatial.biomass.nodes,
-            bus=spatial.biomass.nodes,
-            p_nom_extendable=True,
-            carrier="solid biomass",
-            marginal_cost=costs.at["solid biomass", "fuel"],
-        )
-        logger_biomass += "sources"
     else:
         logger_biomass = "No biomass sources added"
 
     biogas_pot = options["biogas_potential"]
-    if biogas_pot:
+    if math.isinf(biogas_pot):
+        # No limits to biogas
+        n.madd(
+            "Generator",
+            spatial.gas.biogas,
+            bus=spatial.gas.biogas,
+            p_nom_extendable=True,
+            carrier="biogas",
+            marginal_cost=costs.at["biogas", "fuel"],
+        )
+        logger_biogas += "sources"
+    elif biogas_pot:
         # Set limits to the use of biogas
         logger_biogas += f"potential of {biogas_pot} TWh/a"
 
@@ -1220,7 +1231,7 @@ def add_biomass(
         else:
             pop_spatial = 1
 
-        biogas_pot_spatial = biogas_pot * 1e6 / pop_spatial  # MWh
+        biogas_pot_spatial = biogas_pot * 1e6 * pop_spatial  # MWh
 
         n.madd(
             "Store",
@@ -1231,17 +1242,6 @@ def add_biomass(
             marginal_cost=costs.at["biogas", "fuel"],
             e_initial=biogas_pot_spatial,
         )
-    elif math.isinf(biogas_pot):
-        # No limits to biogas
-        n.madd(
-            "Generator",
-            spatial.gas.biogas,
-            bus=spatial.gas.biogas,
-            p_nom_extendable=True,
-            carrier="biogas",
-            marginal_cost=costs.at["biogas", "fuel"],
-        )
-        logger_biogas += "sources"
     else:
         logger_biomass = "No biogas sources added"
 

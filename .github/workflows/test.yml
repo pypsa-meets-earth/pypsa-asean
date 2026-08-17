@@ -5,8 +5,8 @@ on:
     branches:
     - main
   pull_request:
-    branches: 
-    - '**' # Matches all branches instead of just main
+    branches:
+    - main
     paths-ignore:
     - "doc/**"
     - "**.md"

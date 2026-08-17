@@ -116,12 +116,7 @@ clustering:
 
 # ------------------- Demand -------------------
 load_options:
-  substitute: # Load profile not available for LA and TL, use substitute instead
-    LA: KH
-    TL: ID
-  scale:
-    LA: 1456.62 # 12.76 TWh / 8760
-    TL: 47.35 # 414.76 MWh / 8760
+  source: "demcast"
 
 # ------------------- Electricity grid -------------------
 electricity:

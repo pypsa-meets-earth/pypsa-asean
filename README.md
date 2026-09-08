@@ -164,10 +164,10 @@ There are multiple ways to get involved and learn more about our work:
 
 ## Running the model in previous versions
 
-The model can be run in previous versions by checking out the respective tag. For instance, to run the model in version 0.8.0, which is the last version before the recent PyPSA update, the following command can be used:
+The model can be run in previous versions by checking out the respective tag. For instance, to run the model in version 0.9.0, which is the last version before the recent PyPSA update, the following command can be used:
 
 ```bash
-git checkout v0.8.0
+git checkout v0.9.0
 ```
 After checking out the tag, the model can be run as usual. Please make sure to use the environment built for the respective version.
 
@@ -484,27 +484,6 @@ The documentation is available here:
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/wingerter">
-                    <img src="https://avatars.githubusercontent.com/u/6619839?v=4" width="100;" alt="wingerter"/>
-                    <br />
-                    <sub><b>wingerter</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/carlosfv92">
-                    <img src="https://avatars.githubusercontent.com/u/103258059?v=4" width="100;" alt="carlosfv92"/>
-                    <br />
-                    <sub><b>carlosfv92</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/cpschau">
-                    <img src="https://avatars.githubusercontent.com/u/124347782?v=4" width="100;" alt="cpschau"/>
-                    <br />
-                    <sub><b>cpschau</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/arizeosalac">
                     <img src="https://avatars.githubusercontent.com/u/177637669?v=4" width="100;" alt="arizeosalac"/>
                     <br />
@@ -516,6 +495,27 @@ The documentation is available here:
                     <img src="https://avatars.githubusercontent.com/u/3727919?v=4" width="100;" alt="willu47"/>
                     <br />
                     <sub><b>willu47</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/cpschau">
+                    <img src="https://avatars.githubusercontent.com/u/124347782?v=4" width="100;" alt="cpschau"/>
+                    <br />
+                    <sub><b>cpschau</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/wingerter">
+                    <img src="https://avatars.githubusercontent.com/u/6619839?v=4" width="100;" alt="wingerter"/>
+                    <br />
+                    <sub><b>wingerter</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/carlosfv92">
+                    <img src="https://avatars.githubusercontent.com/u/103258059?v=4" width="100;" alt="carlosfv92"/>
+                    <br />
+                    <sub><b>carlosfv92</b></sub>
                 </a>
             </td>
 		</tr>
@@ -579,13 +579,6 @@ The documentation is available here:
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/kma33">
-                    <img src="https://avatars.githubusercontent.com/u/25573938?v=4" width="100;" alt="kma33"/>
-                    <br />
-                    <sub><b>kma33</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/kwaku-duah">
                     <img src="https://avatars.githubusercontent.com/u/74660152?v=4" width="100;" alt="kwaku-duah"/>
                     <br />
@@ -606,8 +599,6 @@ The documentation is available here:
                     <sub><b>Netotse</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/PierreKara1">
                     <img src="https://avatars.githubusercontent.com/u/160237120?v=4" width="100;" alt="PierreKara1"/>
@@ -615,6 +606,8 @@ The documentation is available here:
                     <sub><b>PierreKara1</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/pitmonticone">
                     <img src="https://avatars.githubusercontent.com/u/38562595?v=4" width="100;" alt="pitmonticone"/>
@@ -637,12 +630,28 @@ The documentation is available here:
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/yehorcallmedai-maker">
+                    <img src="https://avatars.githubusercontent.com/u/283192726?v=4" width="100;" alt="yehorcallmedai-maker"/>
+                    <br />
+                    <sub><b>yehorcallmedai-maker</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/zeel2104">
+                    <img src="https://avatars.githubusercontent.com/u/72783325?v=4" width="100;" alt="zeel2104"/>
+                    <br />
+                    <sub><b>zeel2104</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/juli-a-ko">
                     <img src="https://avatars.githubusercontent.com/u/126512394?v=4" width="100;" alt="juli-a-ko"/>
                     <br />
                     <sub><b>juli-a-ko</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/ollie-bell">
                     <img src="https://avatars.githubusercontent.com/u/56110893?v=4" width="100;" alt="ollie-bell"/>
@@ -650,8 +659,6 @@ The documentation is available here:
                     <sub><b>ollie-bell</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/rsparks3">
                     <img src="https://avatars.githubusercontent.com/u/30065966?v=4" width="100;" alt="rsparks3"/>
@@ -674,12 +681,21 @@ The documentation is available here:
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/kma33">
+                    <img src="https://avatars.githubusercontent.com/u/25573938?v=4" width="100;" alt="kma33"/>
+                    <br />
+                    <sub><b>kma33</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/juliusmeier">
                     <img src="https://avatars.githubusercontent.com/u/66074166?v=4" width="100;" alt="juliusmeier"/>
                     <br />
                     <sub><b>juliusmeier</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/jome1">
                     <img src="https://avatars.githubusercontent.com/u/49280197?v=4" width="100;" alt="jome1"/>
@@ -694,8 +710,6 @@ The documentation is available here:
                     <sub><b>jessLryan</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/jarry7">
                     <img src="https://avatars.githubusercontent.com/u/27745389?v=4" width="100;" alt="jarry7"/>
@@ -724,6 +738,8 @@ The documentation is available here:
                     <sub><b>HanaElattar</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/Vamsipriya22">
                     <img src="https://avatars.githubusercontent.com/u/188459113?v=4" width="100;" alt="Vamsipriya22"/>
@@ -738,8 +754,6 @@ The documentation is available here:
                     <sub><b>flacombe</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/EmreYorat">
                     <img src="https://avatars.githubusercontent.com/u/93644024?v=4" width="100;" alt="EmreYorat"/>

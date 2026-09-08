@@ -351,6 +351,7 @@ rule base_network:
         osm_transformers=OSMDIR + "all_transformers_build_network.csv",
         country_shapes="resources/" + RDIR + "shapes/country_shapes.geojson",
         offshore_shapes="resources/" + RDIR + "shapes/offshore_shapes.geojson",
+        custom_line_types="data/custom_line_types.csv",
     output:
         branch(
             config.get("transmission_projects", {}).get("enable"),

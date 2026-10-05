@@ -139,10 +139,13 @@ if __name__ == "__main__":
     else:
         logger.info("No non-integer bus names detected.")
 
-    # Ensure 'under_construction' column contains only boolean values
     for attr in ("links", "lines"):
         df = getattr(n, attr)
+        # Ensure 'under_construction' column contains only boolean values
         if "under_construction" in df.columns:
             df["under_construction"] = df["under_construction"].fillna(0).astype(bool)
+        # Drop countries in lines and links to prevent issue in clustering.
+        if "country" in df.columns:
+            df.drop(columns=["country"], inplace=True)
 
     n.export_to_netcdf(snakemake.output[0])

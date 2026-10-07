@@ -161,7 +161,7 @@ atlite:
       dx: 0.3 # cutout resolution
       dy: 0.3 # cutout resolution
       time: ["2013-03-01", "2013-03-07"]  # to manually specify a different weather year (~70 years available)
-  default: asean-2013-era5
+  default: cutout-2013-era5
 
 # ------------------- Costs & emissions -------------------
 costs:

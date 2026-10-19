@@ -44,7 +44,7 @@ def add_new_buses(n, new_ports):
     # Add new buses for the ports which do not have an existing bus close by. If there are multiple ports at the same location, only one bus is added.
     duplicated = new_ports.duplicated(subset=["x", "y"], keep="first")
     to_add = new_ports[~duplicated]
-    added_buses = n.madd(
+    added_buses = n.add(
         "Bus",
         names=to_add.index,
         x=to_add.x,
@@ -507,7 +507,7 @@ def add_projects(
             # n.add("Line", new_lines.index, **new_lines)
             new_lines_df["dc"] = 0
             new_lines_df["underwater_fraction"] = 0.0  # only relevant for dc
-            n.madd("Line", new_lines.index, **new_lines.to_dict(orient="list"))
+            n.add("Line", new_lines.index, **new_lines.to_dict(orient="list"))
         elif key == "new_links":
             new_links, new_buses_df = connect_new_lines(
                 lines,
@@ -564,13 +564,13 @@ def add_projects(
                     new_buses.index = new_buses.index.map(str)
                     new_buses = new_buses[~new_buses.index.duplicated(keep="first")]
                     new_buses_df = pd.concat([new_buses_df, new_buses])
-                    n.madd("Bus", new_buses.index, **new_buses.to_dict(orient="list"))
+                    n.add("Bus", new_buses.index, **new_buses.to_dict(orient="list"))
                     logger.info(
                         f"Added missing buses to new_buses_df and network:\n{new_buses.index.tolist()}"
                     )
 
             # Add new links to the network
-            n.madd("Link", new_links.index, **new_links.to_dict(orient="list"))
+            n.add("Link", new_links.index, **new_links.to_dict(orient="list"))
 
         elif key == "upgraded_lines":
             line_map = find_closest_lines(

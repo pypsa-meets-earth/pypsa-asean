@@ -387,10 +387,10 @@ def drop_country(
 
         mask = c.df[bus_cols].isin(drop_buses).any(axis=1)
         if mask.any():
-            n.mremove(c.name, c.df.index[mask])
+            n.remove(c.name, c.df.index[mask])
 
     # Finally remove the buses themselves
-    n.mremove("Bus", drop_buses)
+    n.remove("Bus", drop_buses)
 
 
 if __name__ == "__main__":

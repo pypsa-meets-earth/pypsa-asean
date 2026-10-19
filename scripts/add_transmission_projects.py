@@ -41,17 +41,17 @@ def attach_transmission_projects(
 
             if not df.empty:
                 df.rename(columns={"x": "lon", "y": "lat"}, inplace=True)
-                n.madd("Bus", df.index, **df.to_dict(orient="list"))
+                n.add("Bus", df.index, **df.to_dict(orient="list"))
             else:
                 logger.warning(f"No buses added from {path} after filtering.")
 
         elif "new_lines" in path.name:
             logger.info(f"Adding new lines from {path}")
-            n.madd("Line", df.index, **df.to_dict(orient="list"))
+            n.add("Line", df.index, **df.to_dict(orient="list"))
 
         elif "new_links" in path.name:
             logger.info(f"Adding new links from {path}")
-            n.madd("Link", df.index, **df.to_dict(orient="list"))
+            n.add("Link", df.index, **df.to_dict(orient="list"))
 
         elif "adjust_lines" in path.name:
             logger.info(f"Adjusting lines from {path}")

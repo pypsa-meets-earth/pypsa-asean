@@ -391,31 +391,29 @@ rule base_network:
         "scripts/base_network.py"
 
 
-""" todo for realism
-rule build_line_rating:
-    params:
-        snapshots=config["snapshots"],
-    input:
-        base_network="networks/" + RDIR + "base.nc",
-        cutout="cutouts/"
-        + CDIR
-        + [c["cutout"] for _, c in config["renewable"].items()][0]
-        + ".nc",
-    output:
-        output="resources/" + RDIR + "dlr.nc",
-    log:
-        "logs/" + RDIR +"build_line_rating.log",
-    benchmark:
-        "benchmarks/" + RDIR + "build_line_rating",
-    threads: config["atlite"].get("nprocesses", 4),
-    resources:
-        mem_mb=config["atlite"].get("nprocesses", 4) * 1000,
-    conda:
-        "envs/environment.yaml"
-    script:
-        "scripts/build_line_rating.py"
-
-"""
+# todo for realism
+# rule build_line_rating:
+#     params:
+#         snapshots=config["snapshots"],
+#     input:
+#         base_network="networks/" + RDIR + "base.nc",
+#         cutout="cutouts/"
+#         + CDIR
+#         + [c["cutout"] for _, c in config["renewable"].items()][0]
+#         + ".nc",
+#     output:
+#         output="resources/" + RDIR + "dlr.nc",
+#     log:
+#         "logs/" + RDIR +"build_line_rating.log",
+#     benchmark:
+#         "benchmarks/" + RDIR + "build_line_rating",
+#     threads: config["atlite"].get("nprocesses", 4),
+#     resources:
+#         mem_mb=config["atlite"].get("nprocesses", 4) * 1000,
+#     conda:
+#         "envs/environment.yaml"
+#     script:
+#         "scripts/build_line_rating.py"
 
 
 rule build_transmission_projects:

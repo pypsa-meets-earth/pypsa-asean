@@ -668,7 +668,7 @@ if config["enable"].get("retrieve_cost_data", True):
         output:
             "resources/" + RDIR + "costs_{planning_horizons}.csv",
         log:
-            "logs/" + RDIR + "append_cost_data_{year}.log",
+            "logs/" + RDIR + "append_cost_data_{planning_horizons}.log",
         resources:
             mem_mb=3000,
         script:
